@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}RMS POS{% endblock %}</title>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    {% if user.is_authenticated %}
+    <nav>
+        <div class="nav-container">
+            <div style="display: flex; align-items: center; gap: 2rem;">
+                <h1 class="nav-brand">RMS POS</h1>
+                <div class="nav-links">
+                    <a href="{% url 'inventory_dashboard' %}" class="nav-link">Dashboard</a>
+                    <a href="{% url 'product_list' %}" class="nav-link">Products</a>
+                    <a href="{% url 'pos_dashboard' %}" class="nav-link">POS</a>
+                    <a href="{% url 'sales_list' %}" class="nav-link">Sales</a>
+                </div>
+            </div>
+            <div class="nav-user">
+                <span style="color: #374151;">Hello, {{ user.username }}</span>
+                <form method="post" action="{% url 'logout' %}" style="margin: 0;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-secondary">Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    {% endif %}
+
+    <main class="container" style="padding-top: 2rem; padding-bottom: 2rem; min-height: calc(100vh - 12rem);">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="message {% if message.tags == 'error' %}message-error{% else %}message-success{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p class="footer-text">&copy; {% now "Y" %} Retail Management System. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

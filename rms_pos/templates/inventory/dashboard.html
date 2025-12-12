@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block title %}Inventory Dashboard - RMS POS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Retail Dashboard</h1>
+        <p class="page-subtitle">Overview of your inventory and stock levels</p>
+    </div>
+    <a href="{% url 'add_product' %}" class="btn btn-primary">
+        + Add Product
+    </a>
+</div>
+
+<div class="grid grid-cols-3">
+    <!-- Card 1: Total Products -->
+    <div class="stat-card">
+        <div class="stat-header">
+            <div class="stat-icon stat-icon-green">
+                📦
+            </div>
+            <div>
+                <div class="stat-title">Total Products</div>
+                <div class="stat-value">{{ total_products }}</div>
+            </div>
+        </div>
+        <div class="stat-footer">
+            <span class="badge badge-green">Active Inventory</span>
+        </div>
+    </div>
+
+    <!-- Card 2: Low Stock -->
+    <div class="stat-card blue">
+        <div class="stat-header">
+            <div class="stat-icon stat-icon-blue">
+                ⚠️
+            </div>
+            <div>
+                <div class="stat-title">Low Stock Items</div>
+                <div class="stat-value blue">{{ low_stock }}</div>
+            </div>
+        </div>
+        <div class="stat-footer">
+            <span class="badge badge-blue">Needs Reordering</span>
+        </div>
+    </div>
+
+    <!-- Card 3: Quick Actions -->
+    <div class="card">
+        <div class="card-body"
+            style="display: flex; flex-direction: column; justify-content: center; height: 100%; gap: 1rem;">
+            <a href="{% url 'product_list' %}" class="btn btn-secondary" style="text-align: center;">View All
+                Products</a>
+            <a href="{% url 'pos_dashboard' %}" class="btn btn-primary" style="text-align: center;">Go to POS</a>
+        </div>
+    </div>
+</div>
+
+<div class="card" style="margin-top: 2rem;">
+    <div class="card-header">
+        <h3 style="font-size: 1.25rem; font-weight: 600; color: #e8eaed;">Recent Activity</h3>
+    </div>
+    <div class="card-body">
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Action</th>
+                    <th>Quantity</th>
+                    <th>User</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in recent_logs %}
+                <tr>
+                    <td style="font-weight: 600;">{{ log.product.name }}</td>
+                    <td>
+                        <span
+                            class="badge {% if log.action == 'add' %}badge-green{% elif log.action == 'remove' %}badge-red{% else %}badge-blue{% endif %}">
+                            {{ log.get_action_display }}
+                        </span>
+                    </td>
+                    <td style="font-family: monospace; font-size: 1rem;">{{ log.quantity }}</td>
+                    <td>{{ log.user.username }}</td>
+                    <td style="color: #b0b3c1;">{{ log.timestamp|date:"M d, H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 2rem; color: #6b6e7d;">No recent activity found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

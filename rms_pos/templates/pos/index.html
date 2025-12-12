@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+
+{% block title %}POS - RMS{% endblock %}
+
+{% block content %}
+<div class="pos-container" id="pos-app">
+    <!-- Left Side: Product List -->
+    <div class="pos-products">
+        <!-- Search Bar -->
+        <div class="search-box">
+            <input type="text" id="product-search" class="search-input"
+                placeholder="🔍 Scan barcode or search product...">
+        </div>
+
+        <!-- Product Grid -->
+        <div class="product-grid" id="product-grid">
+            <!-- Products will be populated here via JS -->
+            <div style="grid-column: 1/-1; text-align: center; color: #6b6e7d; margin-top: 3rem;">
+                Start typing to search products...
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Side: Cart -->
+    <div class="pos-cart">
+        <div class="cart-header">
+            <h2 style="font-size: 1.25rem; font-weight: 700; color: #1a1d2e; margin: 0;">Current Order</h2>
+        </div>
+
+        <!-- Cart Items -->
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be populated here -->
+            <div style="text-align: center; color: #6b6e7d; margin-top: 3rem;" id="empty-cart-msg">
+                Cart is empty
+            </div>
+        </div>
+
+        <!-- Cart Summary -->
+        <div class="cart-summary">
+            <div class="summary-row">
+                <p>Subtotal</p>
+                <p id="cart-subtotal">₹0.00</p>
+            </div>
+            <div class="summary-row">
+                <p>Tax (0%)</p>
+                <p>₹0.00</p>
+            </div>
+            <div class="summary-total">
+                <p>Total</p>
+                <p id="cart-total" style="color: #a8e063;">₹0.00</p>
+            </div>
+            <button id="checkout-btn" class="btn btn-primary"
+                style="width: 100%; margin-top: 1.5rem; font-size: 1.1rem;" disabled>
+                Checkout
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchInput = document.getElementById('product-search');
+    const productGrid = document.getElementById('product-grid');
+    const cartItemsContainer = document.getElementById('cart-items');
+    const emptyCartMsg = document.getElementById('empty-cart-msg');
+    const cartSubtotalEl = document.getElementById('cart-subtotal');
+    const cartTotalEl = document.getElementById('cart-total');
+    const checkoutBtn = document.getElementById('checkout-btn');
+
+    let cart = [];
+    let searchTimeout;
+
+    searchInput.addEventListener('input', (e) => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            fetchProducts(e.target.value);
+        }, 300);
+    });
+
+    // Auto-focus search on load
+    searchInput.focus();
+    // Load all products initially
+    fetchProducts('');
+
+    async function fetchProducts(query) {
+        // If query is empty, we still fetch to get all products
+        const url = query
+            ? `/pos/api/products/?q=${encodeURIComponent(query)}`
+            : `/pos/api/products/`;
+
+        try {
+            const res = await fetch(url);
+            const data = await res.json();
+            renderProducts(data.results || data); // Handle if API returns list directly or paginated results
+        } catch (e) {
+            console.error("Failed to fetch products", e);
+        }
+    }
+
+    function renderProducts(products) {
+        if (!products || products.length === 0) {
+            productGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: #6b6e7d; margin-top: 3rem;">No products found.</div>';
+            return;
+        }
+
+        productGrid.innerHTML = products.map(p => `
+            <div class="product-card" onclick="addToCart(${p.id}, '${p.name.replace(/'/g, "\\'")}', ${p.price}, ${p.stock})">
+                <div class="product-image">
+                    ${p.image_url ? `<img src="${p.image_url}">` : '<span style="font-size: 2rem;">📦</span>'}
+                </div>
+                <h3 class="product-name">${p.name}</h3>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+                    <span class="product-price">₹${p.price.toFixed(2)}</span>
+                    <span class="product-stock">${p.stock} left</span>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    window.addToCart = function (id, name, price, maxStock) {
+        const existingItem = cart.find(item => item.id === id);
+
+        if (existingItem) {
+            if (existingItem.quantity < maxStock) {
+                existingItem.quantity++;
+            } else {
+                alert('Not enough stock!');
+                return;
+            }
+        } else {
+            if (maxStock > 0) {
+                cart.push({ id, name, price, quantity: 1, maxStock });
+            } else {
+                alert('Out of stock!');
+                return;
+            }
+        }
+
+        updateCartUI();
+    };
+
+    window.removeFromCart = function (id) {
+        cart = cart.filter(item => item.id !== id);
+        updateCartUI();
+    };
+
+    window.updateQuantity = function (id, delta) {
+        const item = cart.find(item => item.id === id);
+        if (item) {
+            const newQty = item.quantity + delta;
+            if (newQty > 0 && newQty <= item.maxStock) {
+                item.quantity = newQty;
+            } else if (newQty <= 0) {
+                removeFromCart(id);
+                return;
+            } else {
+                alert('Not enough stock!');
+            }
+            updateCartUI();
+        }
+    };
+
+    function updateCartUI() {
+        if (cart.length === 0) {
+            cartItemsContainer.innerHTML = '';
+            cartItemsContainer.appendChild(emptyCartMsg);
+            emptyCartMsg.style.display = 'block';
+            checkoutBtn.disabled = true;
+        } else {
+            emptyCartMsg.style.display = 'none';
+            cartItemsContainer.innerHTML = cart.map(item => `
+            <div class="cart-item">
+                    <div style="flex: 1;">
+                        <h4 style="font-weight: 600; color: #e8eaed; margin-bottom: 0.25rem;">${item.name}</h4>
+                        <div style="font-size: 0.85rem; color: #b0b3c1;">₹${item.price.toFixed(2)} x ${item.quantity}</div>
+                    </div>
+                    <div class="qty-controls">
+                        <button onclick="updateQuantity(${item.id}, -1)" class="qty-btn">-</button>
+                        <span class="qty-value">${item.quantity}</span>
+                        <button onclick="updateQuantity(${item.id}, 1)" class="qty-btn">+</button>
+                    </div>
+                    <div style="margin-left: 1rem; font-weight: 600; color: #a8e063;">
+                        ₹${(item.price * item.quantity).toFixed(2)}
+                    </div>
+                </div>
+            `).join('');
+            checkoutBtn.disabled = false;
+        }
+
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        cartSubtotalEl.textContent = `₹${total.toFixed(2)}`;
+        cartTotalEl.textContent = `₹${total.toFixed(2)}`;
+    }
+
+    checkoutBtn.addEventListener('click', async () => {
+        if (cart.length === 0) return;
+
+        checkoutBtn.disabled = true;
+        checkoutBtn.textContent = 'Processing...';
+
+        try {
+            const res = await fetch('/pos/api/checkout/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ cart })
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                alert(`Sale completed! Receipt: ${data.receipt_number}`);
+                cart = [];
+                updateCartUI();
+                searchInput.value = '';
+                // Refresh product list to show updated stock
+                fetchProducts('');
+            } else {
+                alert('Error: ' + data.error);
+            }
+        } catch (err) {
+            alert('Checkout failed. Please try again.');
+            console.error(err);
+        } finally {
+            checkoutBtn.disabled = false;
+            checkoutBtn.textContent = 'Checkout';
+        }
+    });
+</script>
+{% endblock %}
