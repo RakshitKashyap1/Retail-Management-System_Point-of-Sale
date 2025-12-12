@@ -1,6 +1,6 @@
 # Retail Management System + Point of Sale
 
-A full-featured retail management system with integrated POS built with Django and Tailwind CSS.
+A full-featured retail management system with integrated POS built with Python Django framework.
 
 ## Features
 
@@ -13,7 +13,7 @@ A full-featured retail management system with integrated POS built with Django a
 ## Tech Stack
 
 - **Backend**: Django (Python)
-- **Frontend**: HTML, Tailwind CSS, Vanilla JavaScript
+- **Frontend**: HTML, CSS
 - **Database**: SQLite (can be switched to PostgreSQL/MySQL)
 
 ## Installation
