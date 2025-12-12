@@ -102,6 +102,4 @@ Retail Management System + Point of Sale/
 └── static/               # Project-level static files
 ```
 
-## License
 
-This is a demonstration project for educational purposes.
