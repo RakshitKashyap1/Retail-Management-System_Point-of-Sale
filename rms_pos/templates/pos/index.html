@@ -58,6 +58,17 @@
 </div>
 
 <script>
+    function formatCurrency(amount) {
+        const val = parseFloat(amount);
+        const rupees = Math.floor(val);
+        const paise = Math.round((val - rupees) * 100);
+        let result = `${rupees} Rupees`;
+        if (paise > 0) {
+            result += ` & ${paise} Paise`;
+        }
+        return result;
+    }
+
     const searchInput = document.getElementById('product-search');
     const productGrid = document.getElementById('product-grid');
     const cartItemsContainer = document.getElementById('cart-items');
@@ -108,9 +119,9 @@
                     ${p.image_url ? `<img src="${p.image_url}">` : '<span style="font-size: 2rem;">📦</span>'}
                 </div>
                 <h3 class="product-name">${p.name}</h3>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
-                    <span class="product-price">₹${p.price.toFixed(2)}</span>
-                    <span class="product-stock">${p.stock} left</span>
+                <div style="margin-top: 0.5rem;">
+                    <div class="product-price">${formatCurrency(p.price)}</div>
+                    <div class="product-stock" style="text-align: right; font-size: 0.75rem;">${p.stock} left</div>
                 </div>
             </div>
         `).join('');
@@ -171,7 +182,7 @@
             <div class="cart-item">
                     <div style="flex: 1;">
                         <h4 style="font-weight: 600; color: #e8eaed; margin-bottom: 0.25rem;">${item.name}</h4>
-                        <div style="font-size: 0.85rem; color: #b0b3c1;">₹${item.price.toFixed(2)} x ${item.quantity}</div>
+                        <div style="font-size: 0.85rem; color: #b0b3c1;">${formatCurrency(item.price)} x ${item.quantity}</div>
                     </div>
                     <div class="qty-controls">
                         <button onclick="updateQuantity(${item.id}, -1)" class="qty-btn">-</button>
@@ -179,7 +190,7 @@
                         <button onclick="updateQuantity(${item.id}, 1)" class="qty-btn">+</button>
                     </div>
                     <div style="margin-left: 1rem; font-weight: 600; color: #a8e063;">
-                        ₹${(item.price * item.quantity).toFixed(2)}
+                        ${formatCurrency(item.price * item.quantity)}
                     </div>
                 </div>
             `).join('');
@@ -187,8 +198,8 @@
         }
 
         const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        cartSubtotalEl.textContent = `₹${total.toFixed(2)}`;
-        cartTotalEl.textContent = `₹${total.toFixed(2)}`;
+        cartSubtotalEl.textContent = formatCurrency(total);
+        cartTotalEl.textContent = formatCurrency(total);
     }
 
     checkoutBtn.addEventListener('click', async () => {

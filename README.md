@@ -1,20 +1,22 @@
 # Retail Management System + Point of Sale
 
-A full-featured retail management system with integrated POS built with Django and Tailwind CSS.
+A full-featured retail management system with integrated POS built with Django and optimized with a premium dark UI.
 
 ## Features
 
-- **Inventory Management**: Manage products, categories, and stock levels
-- **Point of Sale (POS)**: Fast checkout interface with barcode scanning support
-- **Real-time Stock Sync**: Automatic stock updates on every sale
-- **Role-based Authentication**: Admin, Manager, and Cashier roles
-- **Barcode Support**: Scan or search products by barcode
+- **Inventory Management**: Manage products, categories, and stock levels.
+- **Point of Sale (POS)**: Fast checkout interface with barcode scanning support.
+- **Real-time Stock Sync**: Automatic stock updates on every sale.
+- **Role-based Authentication**: Admin, Manager, and Cashier roles.
+- **Barcode Support**: Scan or search products by barcode.
+- **Premium UI**: Modern, responsive dark theme with glassmorphism effects.
+- **Sales History**: View past receipts and sales details.
 
 ## Tech Stack
 
 - **Backend**: Django (Python)
-- **Frontend**: HTML, Tailwind CSS, Vanilla JavaScript
-- **Database**: SQLite (can be switched to PostgreSQL/MySQL)
+- **Frontend**: HTML, Custom CSS (Vanilla + Glassmorphism), JavaScript
+- **Database**: SQLite (default)
 
 ## Installation
 
@@ -23,66 +25,55 @@ A full-featured retail management system with integrated POS built with Django a
    pip install django pillow
    ```
 
-2. **Install Node dependencies** (for Tailwind CSS):
+2. **Run migrations**:
    ```bash
-   cd rms_pos
-   npm install
-   ```
-
-3. **Run migrations**:
-   ```bash
-   cd ..
    python manage.py makemigrations
    python manage.py migrate
    ```
 
-4. **Create superuser** (if not already created):
+3. **Create superuser** (if not already created):
    ```bash
    python manage.py createsuperuser
    ```
 
 ## Running the Application
 
-1. **Start Tailwind CSS build process** (in one terminal):
+1. **Start Django development server**:
    ```bash
-   cd rms_pos
-   npm run build:css
-   ```
-
-2. **Start Django development server** (in another terminal):
-   ```bash
-   cd ..
    python manage.py runserver
    ```
 
-3. **Access the application**:
+2. **Access the application**:
    - Main app: http://127.0.0.1:8000/
    - Admin panel: http://127.0.0.1:8000/admin/
    - Login: http://127.0.0.1:8000/accounts/login/
 
-## Default Credentials
+## Default Credentials / Roles
 
-- **Admin**: username: `admin`, password: `admin`
-- **Cashier**: username: `cashier`, password: `cashier`
+You can create users with different roles in the Admin Panel.
+
+| Role | Permissions |
+|------|-------------|
+| **Admin** | Full access to Inventory, POS, and User Management. |
+| **Cashier** | Access to POS interface only. |
+
+*Note: The default superuser created via `createsuperuser` has full admin access.*
 
 ## Usage Guide
 
 ### Inventory Management (Admin/Manager)
-
-1. Login with admin credentials
-2. Navigate to Inventory Dashboard
-3. Add categories and products
-4. Set barcodes, prices, and stock quantities
-5. View recent inventory activity
+1. Login with admin credentials.
+2. Navigate to Inventory Dashboard.
+3. Add categories and products (images, prices, stock).
+4. View recent inventory activity.
 
 ### POS Interface (Cashier)
-
-1. Login with cashier credentials
-2. Search for products by name or scan barcode
-3. Add items to cart
-4. Adjust quantities as needed
-5. Click Checkout to complete sale
-6. Stock is automatically deducted
+1. Login with cashier credentials.
+2. Search for products by name or scan barcode.
+3. Add items to cart.
+4. Adjust quantities as needed.
+5. Click **Checkout** to complete sale.
+6. Stock is automatically deducted.
 
 ## Project Structure
 
@@ -97,11 +88,6 @@ Retail Management System + Point of Sale/
 │   ├── pos/              # Point of sale interface
 │   ├── core/             # Core utilities
 │   ├── templates/        # HTML templates
-│   ├── static/           # Static files
-│   └── media/            # Uploaded files
-└── static/               # Project-level static files
+│   ├── static/           # Static files (CSS, JS, Images)
+│   └── media/            # Uploaded files (Product images)
 ```
-
-## License
-
-This is a demonstration project for educational purposes.

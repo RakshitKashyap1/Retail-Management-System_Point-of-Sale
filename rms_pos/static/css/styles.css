@@ -425,7 +425,7 @@ textarea:focus {
 }
 
 .product-price {
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 700;
     background: linear-gradient(135deg, #a8e063 0%, #56ab2f 100%);
     -webkit-background-clip: text;
@@ -657,13 +657,28 @@ footer {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-    .product-grid {
-        grid-template-columns: repeat(2, 1fr);
+@media (max-width: 900px) {
+    .nav-container {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem;
+        gap: 1rem;
     }
 
-    .grid-cols-3 {
-        grid-template-columns: repeat(1, 1fr);
+    .nav-links {
+        display: flex;
+        /* Show links on mobile */
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .nav-user {
+        width: 100%;
+        justify-content: center;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .pos-container {
@@ -671,7 +686,62 @@ footer {
         height: auto;
     }
 
-    .nav-links {
-        display: none;
+    .pos-products,
+    .pos-cart {
+        flex: none;
+        width: 100%;
     }
+
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        max-height: 50vh;
+        /* Limit height on mobile */
+    }
+
+    .grid-cols-2,
+    .grid-cols-3 {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 1rem;
+    }
+
+    .nav-brand {
+        font-size: 1.25rem;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .page-title {
+        font-size: 1.5rem;
+    }
+
+    .stat-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .stat-text {
+        text-align: center;
+    }
+}
+
+/* Responsive Table Wrapper */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+}
+
+/* Ensure tables don't shrink too much */
+table {
+    min-width: 600px;
+    /* Force minimum width to trigger scroll */
 }
