@@ -15,11 +15,18 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     barcode = models.CharField(max_length=100, unique=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    discount_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=0, help_text="Discount percentage (0-100)")
     cost = models.DecimalField(max_digits=10, decimal_places=2, help_text="Cost price per unit")
     stock_quantity = models.IntegerField(default=0)
     image = models.ImageField(upload_to='products/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def get_discounted_price(self):
+        if self.discount_percentage > 0:
+            discount_amount = (self.price * self.discount_percentage) / 100
+            return round(self.price - discount_amount, 2)
+        return self.price
 
     def __str__(self):
         return self.name

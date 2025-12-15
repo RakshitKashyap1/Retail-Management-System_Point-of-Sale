@@ -22,6 +22,7 @@
                         <th>Category</th>
                         <th>Barcode</th>
                         <th>Price</th>
+                        <th>Discount</th>
                         <th>Stock</th>
                         <th>Actions</th>
                     </tr>
@@ -39,6 +40,9 @@
                         </td>
                         <td style="font-family: monospace; color: #b0b3c1;">{{ product.barcode }}</td>
                         <td style="font-weight: 700; color: #a8e063;">{{ product.price|rupee_paise }}</td>
+                        <td style="font-weight: 700; color: #ef4444;">{{ product.discount_percentage|stringformat:".0f"
+                            }}%
+                        </td>
                         <td>
                             <span
                                 class="badge {% if product.stock_quantity <= 10 %}badge-red{% else %}badge-green{% endif %}">

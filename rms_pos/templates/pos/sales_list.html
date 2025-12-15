@@ -77,7 +77,13 @@
                             </div>
                         </td>
                         <td>
-                            <span class="amount-display">{{ sale.total_amount|rupee_paise }}</span>
+                            <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                                <span class="amount-display">{{ sale.total_amount|rupee_paise }}</span>
+                                {% if sale.discount_amount > 0 %}
+                                <span style="font-size: 0.8rem; color: #ef4444;">Saved {{
+                                    sale.discount_amount|rupee_paise }}</span>
+                                {% endif %}
+                            </div>
                         </td>
                     </tr>
                     {% empty %}

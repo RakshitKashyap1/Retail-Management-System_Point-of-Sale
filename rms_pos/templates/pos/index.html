@@ -113,18 +113,31 @@
             return;
         }
 
-        productGrid.innerHTML = products.map(p => `
-            <div class="product-card" onclick="addToCart(${p.id}, '${p.name.replace(/'/g, "\\'")}', ${p.price}, ${p.stock})">
+        productGrid.innerHTML = products.map(p => {
+            const hasDiscount = p.discount_percentage > 0;
+            const priceDisplay = hasDiscount
+                ? `<div class="product-price">
+                     <span style="text-decoration: line-through; color: #6b6e7d; font-size: 0.9em;">${formatCurrency(p.price)}</span>
+                     <span style="color: #ef4444; margin-left: 0.5rem;">${formatCurrency(p.discounted_price)}</span>
+                   </div>`
+                : `<div class="product-price">${formatCurrency(p.price)}</div>`;
+
+            const priceToUse = hasDiscount ? p.discounted_price : p.price;
+
+            return `
+            <div class="product-card" onclick="addToCart(${p.id}, '${p.name.replace(/'/g, "\\'")}', ${priceToUse}, ${p.stock})">
                 <div class="product-image">
                     ${p.image_url ? `<img src="${p.image_url}">` : '<span style="font-size: 2rem;">📦</span>'}
+                    ${hasDiscount ? `<span style="position: absolute; top: 0.5rem; right: 0.5rem; background: #ef4444; color: white; padding: 0.25rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; font-weight: bold;">-${p.discount_percentage}%</span>` : ''}
                 </div>
                 <h3 class="product-name">${p.name}</h3>
                 <div style="margin-top: 0.5rem;">
-                    <div class="product-price">${formatCurrency(p.price)}</div>
+                    ${priceDisplay}
                     <div class="product-stock" style="text-align: right; font-size: 0.75rem;">${p.stock} left</div>
                 </div>
             </div>
-        `).join('');
+            `;
+        }).join('');
     }
 
     window.addToCart = function (id, name, price, maxStock) {

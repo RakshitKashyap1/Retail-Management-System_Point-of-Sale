@@ -21,10 +21,13 @@ def product_search_api(request):
     )
     results = []
     for p in products[:50]:
+        discounted_price = p.get_discounted_price()
         results.append({
             'id': p.id,
             'name': p.name,
             'price': float(p.price),
+            'discounted_price': float(discounted_price),
+            'discount_percentage': float(p.discount_percentage),
             'stock': p.stock_quantity,
             'barcode': p.barcode,
             'image_url': p.image.url if p.image else None
@@ -43,6 +46,7 @@ def checkout_api(request):
             return JsonResponse({'error': 'Cart is empty'}, status=400)
 
         total_amount = 0
+        total_discount = 0
         sale = Sale.objects.create(
             cashier=request.user,
             total_amount=0 # Will update later
@@ -68,17 +72,22 @@ def checkout_api(request):
                 note=f"Sale {sale.receipt_number}"
             )
             
+            discounted_price = product.get_discounted_price()
+            discount_amount_per_unit = product.price - discounted_price
+            
             SaleItem.objects.create(
                 sale=sale,
                 product=product,
                 quantity=quantity,
-                price_at_sale=product.price,
-                subtotal=product.price * quantity
+                price_at_sale=discounted_price,
+                subtotal=discounted_price * quantity
             )
             
-            total_amount += float(product.price) * quantity
+            total_amount += float(discounted_price) * quantity
+            total_discount += float(discount_amount_per_unit) * quantity
 
         sale.total_amount = total_amount
+        sale.discount_amount = total_discount
         sale.save()
         
         return JsonResponse({'success': True, 'receipt_number': sale.receipt_number})
