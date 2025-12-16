@@ -31,17 +31,16 @@
                     {% for product in products %}
                     <tr>
                         <td>
-                            <div style="font-weight: 600; color: #e8eaed;">{{ product.name }}</div>
+                            <div style="font-weight: 600; color: var(--text-primary);">{{ product.name }}</div>
                         </td>
                         <td>
-                            <span class="badge badge-blue"
-                                style="background: rgba(79, 172, 254, 0.1); color: #4facfe;">{{ product.category.name
-                                }}</span>
+                            <span class="badge badge-blue" style="background: rgba(79, 172, 254, 0.1); color: #4facfe;">
+                                {{ product.category.name }}
+                            </span>
                         </td>
-                        <td style="font-family: monospace; color: #b0b3c1;">{{ product.barcode }}</td>
+                        <td style="font-family: monospace; color: var(--text-secondary);">{{ product.barcode }}</td>
                         <td style="font-weight: 700; color: #a8e063;">{{ product.price|rupee_paise }}</td>
-                        <td style="font-weight: 700; color: #ef4444;">{{ product.discount_percentage|stringformat:".0f"
-                            }}%
+                        <td style="font-weight: 700; color: #ef4444;">{{ product.discount_percentage|floatformat:"0" }}%
                         </td>
                         <td>
                             <span

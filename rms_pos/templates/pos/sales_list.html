@@ -70,8 +70,8 @@
                             <div style="display: flex; flex-direction: column; gap: 0.25rem;">
                                 {% for item in sale.items.all %}
                                 <div style="font-size: 0.9rem;">
-                                    <span style="color: #e8eaed;">{{ item.product.name }}</span>
-                                    <span style="color: #6b6e7d;">x{{ item.quantity }}</span>
+                                    <span style="color: var(--text-primary);">{{ item.product.name }}</span>
+                                    <span style="color: var(--text-muted);">x{{ item.quantity }}</span>
                                 </div>
                                 {% endfor %}
                             </div>
