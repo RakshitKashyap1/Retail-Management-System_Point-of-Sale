@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Sum
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
@@ -102,4 +103,23 @@ def checkout_api(request):
 @login_required
 def sales_list(request):
     sales = Sale.objects.prefetch_related('items__product').select_related('cashier').order_by('-created_at')
-    return render(request, 'pos/sales_list.html', {'sales': sales})
+    
+    view_type = request.GET.get('view', 'all')
+    date_input = request.GET.get('date')
+    month_input = request.GET.get('month')
+    
+    if view_type == 'daily' and date_input:
+        sales = sales.filter(created_at__date=date_input)
+    elif view_type == 'monthly' and month_input:
+        year, month = month_input.split('-')
+        sales = sales.filter(created_at__year=year, created_at__month=month)
+        
+    total_sales = sales.aggregate(total=Sum('total_amount'))['total'] or 0
+    
+    return render(request, 'pos/sales_list.html', {
+        'sales': sales,
+        'view_type': view_type,
+        'selected_date': date_input,
+        'selected_month': month_input,
+        'total_sales': total_sales
+    })

@@ -27,6 +27,19 @@
         justify-content: center;
         font-size: 0.7rem;
     }
+
+    .view-filters {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    /* Override input styles for date inputs to look better */
+    input[type="date"],
+    input[type="month"] {
+        color-scheme: dark;
+        /* Helps with dark mode calendar */
+    }
 </style>
 
 <div class="page-header">
@@ -36,6 +49,190 @@
     </div>
 </div>
 
+<div class="view-filters">
+    <a href="?view=all" class="btn {% if view_type == 'all' %}btn-primary{% else %}btn-secondary{% endif %}"
+        style="display:inline-flex; align-items:center;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            style="margin-right:0.5rem;">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+        </svg> All History
+    </a>
+    <a href="?view=daily" class="btn {% if view_type == 'daily' %}btn-primary{% else %}btn-secondary{% endif %}"
+        style="display:inline-flex; align-items:center;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            style="margin-right:0.5rem;">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+            <path d="M8 14h.01" />
+            <path d="M12 14h.01" />
+            <path d="M16 14h.01" />
+            <path d="M8 18h.01" />
+            <path d="M12 18h.01" />
+            <path d="M16 18h.01" />
+        </svg> Day Wise Sales
+    </a>
+    <a href="?view=monthly" class="btn {% if view_type == 'monthly' %}btn-primary{% else %}btn-secondary{% endif %}"
+        style="display:inline-flex; align-items:center;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            style="margin-right:0.5rem;">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg> Month Wise Sales
+    </a>
+</div>
+
+{% if view_type == 'daily' %}
+<!-- Daily Sales Section -->
+<div class="card mb-4" style="margin-bottom: 2rem; border-color: rgba(168, 224, 99, 0.3);">
+    <div class="card-body">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <form method="GET" style="display: flex; align-items: center; gap: 1rem; flex: 1;">
+                <input type="hidden" name="view" value="daily">
+                <div>
+                    <label style="margin-bottom: 0.5rem;">Select Date</label>
+                    <input type="date" name="date" value="{{ selected_date|default:'' }}" onchange="this.form.submit()"
+                        class="form-control" style="max-width: 250px;">
+                </div>
+            </form>
+            <div class="stat-card"
+                style="padding: 1rem 2rem; min-width: 250px; text-align: right; background: rgba(168, 224, 99, 0.1);">
+                <div
+                    style="font-size: 0.9rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px;">
+                    Total Daily Sales</div>
+                <div class="amount-display" style="font-size: 2rem;">{{ total_sales|rupee_paise }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: var(--text-primary);">Daily Sales Report</h3>
+    </div>
+    <div class="card-body" style="padding: 0;">
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Receipt #</th>
+                        <th>Time</th>
+                        <th>Cashier</th>
+                        <th>Items</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sale in sales %}
+                    <tr>
+                        <td><span class="receipt-id">#{{ sale.receipt_number|default:sale.id }}</span></td>
+                        <td style="color: #b0b3c1;">{{ sale.created_at|date:"H:i" }}</td>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <div class="cashier-avatar">{{ sale.cashier.username|slice:":1"|upper }}</div>
+                                {{ sale.cashier.username }}
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                                {% for item in sale.items.all %}
+                                <div style="font-size: 0.9rem;">
+                                    <span style="color: var(--text-primary);">{{ item.product.name }}</span>
+                                    <span style="color: var(--text-muted);">x{{ item.quantity }}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td class="amount-display">{{ sale.total_amount|rupee_paise }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 3rem; color: #6b6e7d;">
+                            No sales found for this date.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% elif view_type == 'monthly' %}
+<!-- Monthly Sales Section -->
+<div class="card mb-4" style="margin-bottom: 2rem; border-color: rgba(79, 172, 254, 0.3);">
+    <div class="card-body">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <form method="GET" style="display: flex; align-items: center; gap: 1rem; flex: 1;">
+                <input type="hidden" name="view" value="monthly">
+                <div>
+                    <label style="margin-bottom: 0.5rem;">Select Month</label>
+                    <input type="month" name="month" value="{{ selected_month|default:'' }}"
+                        onchange="this.form.submit()" class="form-control" style="max-width: 250px;">
+                </div>
+            </form>
+            <div class="stat-card blue"
+                style="padding: 1rem 2rem; min-width: 250px; text-align: right; background: rgba(79, 172, 254, 0.1);">
+                <div
+                    style="font-size: 0.9rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px;">
+                    Total Monthly Sales</div>
+                <div class="amount-display" style="font-size: 2rem; color: #4facfe;">{{ total_sales|rupee_paise }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: var(--text-primary);">Monthly Sales Report</h3>
+    </div>
+    <div class="card-body" style="padding: 0;">
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Receipt #</th>
+                        <th>Date</th>
+                        <th>Cashier</th>
+                        <th>Items Count</th>
+                        <th>Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sale in sales %}
+                    <tr>
+                        <td><span class="receipt-id">#{{ sale.receipt_number|default:sale.id }}</span></td>
+                        <td style="color: #b0b3c1;">{{ sale.created_at|date:"M d, H:i" }}</td>
+                        <td>{{ sale.cashier.username }}</td>
+                        <td>{{ sale.items.count }} items</td>
+                        <td class="amount-display">{{ sale.total_amount|rupee_paise }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 3rem; color: #6b6e7d;">
+                            No sales found for this month.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% else %}
+<!-- Default All History Section -->
 <div class="card">
     <div class="card-body" style="padding: 0;">
         <div class="table-responsive">
@@ -98,4 +295,5 @@
         </div>
     </div>
 </div>
+{% endif %}
 {% endblock %}
