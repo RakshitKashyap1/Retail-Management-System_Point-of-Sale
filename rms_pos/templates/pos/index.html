@@ -116,24 +116,24 @@
         productGrid.innerHTML = products.map(p => {
             const hasDiscount = p.discount_percentage > 0;
             const priceDisplay = hasDiscount
-                ? `<div class="product-price">
-                     <span style="text-decoration: line-through; color: #6b6e7d; font-size: 0.9em;">${formatCurrency(p.price)}</span>
-                     <span style="color: #ef4444; margin-left: 0.5rem;">${formatCurrency(p.discounted_price)}</span>
+                ? `<div style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.25rem;">
+                     <span style="text-decoration: line-through; color: #6b6e7d; font-size: 0.85rem;">${formatCurrency(p.price)}</span>
+                     <div class="product-price" style="font-size: 1.1rem;">${formatCurrency(p.discounted_price)}</div>
                    </div>`
-                : `<div class="product-price">${formatCurrency(p.price)}</div>`;
+                : `<div class="product-price" style="font-size: 1.1rem;">${formatCurrency(p.price)}</div>`;
 
             const priceToUse = hasDiscount ? p.discounted_price : p.price;
 
             return `
-            <div class="product-card" onclick="addToCart(${p.id}, '${p.name.replace(/'/g, "\\'")}', ${priceToUse}, ${p.stock})">
+            <div class="product-card" style="position: relative;" onclick="addToCart(${p.id}, '${p.name.replace(/'/g, "\\'")}', ${priceToUse}, ${p.stock})">
+                ${hasDiscount ? `<div style="position: absolute; top: 1rem; right: 1rem; background: #ef4444; color: white; padding: 0.25rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; z-index: 2; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">-${p.discount_percentage}%</div>` : ''}
                 <div class="product-image">
                     ${p.image_url ? `<img src="${p.image_url}">` : '<span style="font-size: 2rem;">📦</span>'}
-                    ${hasDiscount ? `<span style="position: absolute; top: 0.5rem; right: 0.5rem; background: #ef4444; color: white; padding: 0.25rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; font-weight: bold;">-${p.discount_percentage}%</span>` : ''}
                 </div>
-                <h3 class="product-name">${p.name}</h3>
-                <div style="margin-top: 0.5rem;">
+                <h3 class="product-name" style="margin-bottom: 0.5rem;">${p.name}</h3>
+                <div>
                     ${priceDisplay}
-                    <div class="product-stock" style="text-align: right; font-size: 0.75rem;">${p.stock} left</div>
+                    <div class="product-stock" style="text-align: right; font-size: 0.75rem; margin-top: 0.5rem;">${p.stock} left</div>
                 </div>
             </div>
             `;

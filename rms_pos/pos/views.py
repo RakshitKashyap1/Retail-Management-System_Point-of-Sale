@@ -15,11 +15,11 @@ def pos_view(request):
 @login_required
 def product_search_api(request):
     query = request.GET.get('q', '')
-    products = Product.objects.filter(
+    products = (Product.objects.filter(
         name__icontains=query
     ) | Product.objects.filter(
         barcode__icontains=query
-    )
+    )).order_by('-discount_percentage', 'name')
     results = []
     for p in products[:50]:
         discounted_price = p.get_discounted_price()
