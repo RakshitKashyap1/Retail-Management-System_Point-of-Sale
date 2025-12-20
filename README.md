@@ -4,13 +4,13 @@ A full-featured retail management system with integrated POS built with Django a
 
 ## Features
 
-- **Inventory Management**: Manage products, categories, and stock levels.
-- **Point of Sale (POS)**: Fast checkout interface with barcode scanning support.
-- **Real-time Stock Sync**: Automatic stock updates on every sale.
-- **Role-based Authentication**: Admin, Manager, and Cashier roles.
-- **Barcode Support**: Scan or search products by barcode.
-- **Premium UI**: Modern, responsive dark theme with glassmorphism effects.
-- **Sales History**: View past receipts and sales details.
+- **Interactive Dashboard**: Centered overview with large, clickable stat cards for Total Products, Low Stock and Daily Sales.
+- **Advanced Filtering**: Quick-toggle pill-style filters on the product list (All, In Stock, Low Stock).
+- **Point of Sale (POS)**: Fast checkout interface that automatically hides out-of-stock items for accuracy.
+- **Daily Performance**: Real-time tracking of daily revenue and sales volume on the admin dashboard.
+- **Dynamic Stock Alerts**: Visual stock level badges and dedicated replenishment filters.
+- **Premium UI**: Modern dark theme with glassmorphism, scaled-up statistics, and high-contrast visuals.
+- **Role-based Security**: Automated redirects and permission levels for Admin, Manager, and Cashier.
 
 ## Tech Stack
 
@@ -54,26 +54,26 @@ You can create users with different roles in the Admin Panel.
 
 | Role | Permissions |
 |------|-------------|
-| **Admin** | Full access to Inventory, POS, and User Management. |
+| **Admin** | Full access to Inventory, Analytics Dashboard, and User Management. |
+| **Manager** | Access to Inventory Dashboard and Product Management. |
 | **Cashier** | Access to POS interface only. |
 
 *Note: The default superuser created via `createsuperuser` has full admin access.*
 
 ## Usage Guide
 
-### Inventory Management (Admin/Manager)
-1. Login with admin credentials.
-2. Navigate to Inventory Dashboard.
-3. Add categories and products (images, prices, stock).
-4. View recent inventory activity.
+### Analytics & Inventory (Admin/Manager)
+1. **Dashboard Overview**: View "Daily Sales" revenue and "Low Stock" counts at a glance.
+2. **Interactive Stats**: Click on any dashboard card to jump directly to the detailed view.
+3. **Smart Inventory**: Use the specialized filters (In Stock / Low Stock) to manage replenishment.
+4. **Product Management**: Add or edit products with images, barcodes, and automated inventory logging.
 
-### POS Interface (Cashier)
-1. Login with cashier credentials.
-2. Search for products by name or scan barcode.
-3. Add items to cart.
-4. Adjust quantities as needed.
-5. Click **Checkout** to complete sale.
-6. Stock is automatically deducted.
+### POS Operations (Cashier)
+1. **Search**: Find products rapidly by name or by scanning a barcode.
+2. **Automated Stock Protection**: Items with zero stock are hidden to prevent invalid sales.
+3. **Cart Management**: Adjust quantities, remove items, and see real-time price totals with discounts.
+4. **Checkout**: Secure transaction processing with automatic stock deduction and receipt generation.
+
 
 ## Project Structure
 

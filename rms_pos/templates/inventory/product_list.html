@@ -6,10 +6,28 @@
 {% block content %}
 <div class="page-header">
     <div>
-        <h1 class="page-title">Products</h1>
-        <p class="page-subtitle">Manage your product catalog</p>
+        <h1 class="page-title">{{ title|default:"Products" }}</h1>
+        <p class="page-subtitle">{% if is_low_stock_view %}Items requiring replenishment{% else %}Manage your product
+            catalog{% endif %}</p>
     </div>
-    <a href="{% url 'add_product' %}" class="btn btn-primary">Add New Product</a>
+    <div style="display: flex; gap: 1rem; align-items: center;">
+        <div class="filter-group"
+            style="display: flex; background: var(--card-bg); padding: 0.3rem; border-radius: 12px; border: 1px solid var(--border-color); margin-right: 1rem;">
+            <a href="?stock_status=all"
+                class="btn {% if current_status == 'all' %}btn-primary{% else %}btn-secondary{% endif %}"
+                style="padding: 0.4rem 1rem; border-radius: 10px; font-size: 0.85rem;">All</a>
+            <a href="?stock_status=instock"
+                class="btn {% if current_status == 'instock' %}btn-primary{% else %}btn-secondary{% endif %}"
+                style="padding: 0.4rem 1rem; border-radius: 10px; font-size: 0.85rem;">In Stock</a>
+            <a href="?stock_status=low"
+                class="btn {% if current_status == 'low' %}btn-primary{% else %}btn-secondary{% endif %}"
+                style="padding: 0.4rem 1rem; border-radius: 10px; font-size: 0.85rem;">Low Stock</a>
+        </div>
+        {% if is_low_stock_view or current_status != 'all' %}
+        <a href="{% url 'inventory_dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+        {% endif %}
+        <a href="{% url 'add_product' %}" class="btn btn-primary">Add New Product</a>
+    </div>
 </div>
 
 <div class="card">

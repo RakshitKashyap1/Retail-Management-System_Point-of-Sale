@@ -226,8 +226,8 @@ nav {
 .stat-card {
     background: linear-gradient(135deg, rgba(168, 224, 99, 0.15) 0%, rgba(86, 171, 47, 0.1) 100%);
     backdrop-filter: blur(10px);
-    padding: 2rem;
-    border-radius: 20px;
+    padding: 3rem;
+    border-radius: 24px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(168, 224, 99, 0.2);
     transition: all 0.3s;
@@ -250,18 +250,18 @@ nav {
 .stat-header {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .stat-icon {
-    width: 3.5rem;
-    height: 3.5rem;
-    border-radius: 16px;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
 }
 
 .stat-icon-green {
@@ -280,17 +280,17 @@ nav {
 }
 
 .stat-title {
-    font-size: 0.85rem;
+    font-size: 1.1rem;
     color: var(--text-primary);
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
 }
 
 .stat-value {
-    font-size: 2.5rem;
-    font-weight: 700;
+    font-size: 4rem;
+    font-weight: 800;
     background: linear-gradient(135deg, #a8e063 0%, #56ab2f 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -298,6 +298,8 @@ nav {
 }
 
 .stat-value.blue {
+    font-size: 4rem;
+    font-weight: 800;
     background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -809,4 +811,33 @@ footer {
 table {
     min-width: 600px;
     /* Force minimum width to trigger scroll */
+}
+
+/* Purple Theme for Daily Sales */
+.stat-card.purple {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(192, 132, 252, 0.1) 100%);
+    border-color: rgba(139, 92, 246, 0.2);
+}
+
+.stat-card.purple:hover {
+    box-shadow: 0 12px 40px rgba(139, 92, 246, 0.3);
+}
+
+.stat-icon-purple {
+    background: linear-gradient(135deg, #8b5cf6 0%, #c084fc 100%);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
+
+.stat-value.purple {
+    font-size: 4rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #8b5cf6 0%, #c084fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.badge-purple {
+    background: linear-gradient(135deg, #8b5cf6 0%, #c084fc 100%);
+    color: #1a1d2e;
 }
