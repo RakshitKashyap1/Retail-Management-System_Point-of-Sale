@@ -93,7 +93,7 @@ def checkout_api(request):
         sale.discount_amount = total_discount
         sale.save()
         
-        return JsonResponse({'success': True, 'receipt_number': sale.receipt_number})
+        return JsonResponse({'success': True, 'sale_id': sale.id, 'receipt_number': sale.receipt_number})
         
     except Product.DoesNotExist:
         return JsonResponse({'error': 'Product not found'}, status=404)
@@ -103,8 +103,94 @@ def checkout_api(request):
         return JsonResponse({'error': str(e)}, status=500)
 
 @login_required
+def payment_page(request, sale_id):
+    """Display payment options page"""
+    from django.shortcuts import redirect
+    sale = get_object_or_404(Sale, id=sale_id, cashier=request.user)
+    
+    if sale.is_completed:
+        # If already completed, redirect to receipt
+        return redirect('receipt_page', sale_id=sale.id)
+    
+    items = sale.items.select_related('product').all()
+    
+    return render(request, 'pos/payment.html', {
+        'sale': sale,
+        'items': items
+    })
+
+@login_required
+@require_POST
+def process_payment(request, sale_id):
+    """Process the payment and complete the sale"""
+    sale = get_object_or_404(Sale, id=sale_id, cashier=request.user)
+    
+    if sale.is_completed:
+        return JsonResponse({'error': 'Sale already completed'}, status=400)
+    
+    try:
+        data = json.loads(request.body)
+        payment_method = data.get('payment_method', 'cash')
+        
+        sale.payment_method = payment_method
+        
+        if payment_method == 'cash':
+            cash_received = float(data.get('cash_received', 0))
+            if cash_received < float(sale.total_amount):
+                return JsonResponse({'error': 'Insufficient cash received'}, status=400)
+            
+            sale.cash_received = cash_received
+            sale.change_amount = cash_received - float(sale.total_amount)
+        
+        sale.is_completed = True
+        sale.save()
+        
+        return JsonResponse({
+            'success': True,
+            'sale_id': sale.id,
+            'receipt_number': sale.receipt_number
+        })
+        
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+@login_required
+def receipt_page(request, sale_id):
+    """Display receipt with option to add customer details"""
+    sale = get_object_or_404(Sale, id=sale_id)
+    items = sale.items.select_related('product').all()
+    
+    return render(request, 'pos/receipt.html', {
+        'sale': sale,
+        'items': items
+    })
+
+@login_required
+@require_POST
+def save_customer_details(request, sale_id):
+    """Save customer details for loyalty program"""
+    sale = get_object_or_404(Sale, id=sale_id)
+    
+    try:
+        data = json.loads(request.body)
+        customer_name = data.get('customer_name', '').strip()
+        customer_mobile = data.get('customer_mobile', '').strip()
+        
+        sale.customer_name = customer_name
+        sale.customer_mobile = customer_mobile
+        sale.save()
+        
+        return JsonResponse({
+            'success': True,
+            'message': 'Customer details saved successfully'
+        })
+        
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+@login_required
 def sales_list(request):
-    sales = Sale.objects.prefetch_related('items__product').select_related('cashier').order_by('-created_at')
+    sales = Sale.objects.filter(is_completed=True).prefetch_related('items__product').select_related('cashier').order_by('-created_at')
     
     view_type = request.GET.get('view', 'all')
     date_input = request.GET.get('date')

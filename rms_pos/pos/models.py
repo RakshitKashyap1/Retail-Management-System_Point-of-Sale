@@ -3,12 +3,30 @@ from django.conf import settings
 from inventory.models import Product
 
 class Sale(models.Model):
+    PAYMENT_CHOICES = (
+        ('cash', 'Cash'),
+        ('card', 'Card'),
+        ('upi', 'UPI'),
+    )
+    
     cashier = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='sales')
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     tax_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     discount_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     receipt_number = models.CharField(max_length=50, unique=True, blank=True)
+    
+    # Payment details
+    payment_method = models.CharField(max_length=10, choices=PAYMENT_CHOICES, default='cash')
+    cash_received = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    change_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    
+    # Customer details for loyalty program
+    customer_name = models.CharField(max_length=200, blank=True)
+    customer_mobile = models.CharField(max_length=15, blank=True)
+    
+    # Payment status - pending until payment is completed
+    is_completed = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if not self.receipt_number:

@@ -1,0 +1,486 @@
+{% extends 'base.html' %}
+
+{% block title %}Payment - RMS{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 2rem 2rem;">
+    <div class="payment-page">
+        <!-- Order Summary Card -->
+        <div class="order-summary-card">
+            <div class="card-header"
+                style="background: linear-gradient(135deg, rgba(79, 172, 254, 0.15) 0%, rgba(0, 242, 254, 0.1) 100%);">
+                <h2 style="font-size: 1.25rem; font-weight: 700; margin: 0;">
+                    <span style="margin-right: 0.5rem;">🧾</span> Order Summary
+                </h2>
+                <span class="receipt-badge">Receipt #{{ sale.receipt_number }}</span>
+            </div>
+            <div class="card-body">
+                <div class="order-items">
+                    {% for item in items %}
+                    <div class="order-item">
+                        <div class="item-info">
+                            <span class="item-name">{{ item.product.name }}</span>
+                            <span class="item-qty">× {{ item.quantity }}</span>
+                        </div>
+                        <span class="item-price">₹{{ item.subtotal }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="order-total">
+                    {% if sale.discount_amount > 0 %}
+                    <div class="total-row discount">
+                        <span>Discount</span>
+                        <span style="color: #a8e063;">-₹{{ sale.discount_amount }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="total-row final">
+                        <span>Total Amount</span>
+                        <span class="total-amount" id="total-amount" data-amount="{{ sale.total_amount }}">₹{{
+                            sale.total_amount }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Methods Card -->
+        <div class="payment-methods-card">
+            <div class="card-header">
+                <h2 style="font-size: 1.25rem; font-weight: 700; margin: 0;">
+                    <span style="margin-right: 0.5rem;">💳</span> Select Payment Method
+                </h2>
+            </div>
+            <div class="card-body">
+                <div class="payment-options">
+                    <div class="payment-option" data-method="cash" onclick="selectPaymentMethod('cash')">
+                        <div class="payment-icon cash-icon">💵</div>
+                        <span class="payment-label">Cash</span>
+                        <div class="payment-check">✓</div>
+                    </div>
+                    <div class="payment-option" data-method="card" onclick="selectPaymentMethod('card')">
+                        <div class="payment-icon card-icon">💳</div>
+                        <span class="payment-label">Card</span>
+                        <div class="payment-check">✓</div>
+                    </div>
+                    <div class="payment-option" data-method="upi" onclick="selectPaymentMethod('upi')">
+                        <div class="payment-icon upi-icon">📱</div>
+                        <span class="payment-label">UPI</span>
+                        <div class="payment-check">✓</div>
+                    </div>
+                </div>
+
+                <!-- Cash Payment Details -->
+                <div id="cash-details" class="cash-details" style="display: none;">
+                    <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1.5rem; color: var(--text-primary);">
+                        Cash Payment Details
+                    </h3>
+                    <div class="form-group">
+                        <label for="cash-received">Cash Received (₹)</label>
+                        <input type="number" id="cash-received" class="cash-input" placeholder="Enter amount received"
+                            min="{{ sale.total_amount }}" step="0.01" oninput="calculateChange()">
+                    </div>
+                    <div class="change-display" id="change-display" style="display: none;">
+                        <div class="change-label">Change to Return</div>
+                        <div class="change-amount" id="change-amount">₹0.00</div>
+                    </div>
+                </div>
+
+                <!-- Other Payment Info -->
+                <div id="other-payment-info" class="other-payment-info" style="display: none;">
+                    <div class="payment-ready-message">
+                        <div class="check-circle">✓</div>
+                        <span id="payment-method-text">Payment Ready</span>
+                    </div>
+                </div>
+
+                <button id="complete-payment-btn" class="btn btn-primary complete-payment-btn" disabled>
+                    Complete Payment
+                </button>
+
+                <a href="{% url 'pos_dashboard' %}" class="btn btn-secondary cancel-btn"
+                    onclick="return confirm('Are you sure? This will cancel the current order.');">
+                    Cancel Order
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .payment-page {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .order-summary-card,
+    .payment-methods-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        border: 1px solid var(--border-color);
+        overflow: hidden;
+    }
+
+    .card-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .receipt-badge {
+        background: var(--accent-gradient);
+        color: #1a1d2e;
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 700;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .order-items {
+        max-height: 300px;
+        overflow-y: auto;
+        margin-bottom: 1.5rem;
+    }
+
+    .order-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        background: var(--input-bg);
+        border-radius: 12px;
+        margin-bottom: 0.75rem;
+        border: 1px solid var(--border-color);
+    }
+
+    .item-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .item-name {
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    .item-qty {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    }
+
+    .item-price {
+        font-weight: 600;
+        color: var(--accent-start);
+    }
+
+    .order-total {
+        border-top: 2px solid var(--border-color);
+        padding-top: 1rem;
+    }
+
+    .total-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        color: var(--text-secondary);
+    }
+
+    .total-row.final {
+        font-size: 1.5rem;
+        font-weight: 700;
+        padding-top: 1rem;
+    }
+
+    .total-amount {
+        background: var(--accent-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .payment-options {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .payment-option {
+        background: var(--input-bg);
+        border: 2px solid var(--border-color);
+        border-radius: 16px;
+        padding: 1.5rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        position: relative;
+    }
+
+    .payment-option:hover {
+        border-color: var(--accent-start);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px var(--accent-shadow);
+    }
+
+    .payment-option.selected {
+        border-color: var(--accent-start);
+        background: linear-gradient(135deg, rgba(168, 224, 99, 0.1) 0%, rgba(86, 171, 47, 0.05) 100%);
+    }
+
+    .payment-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .payment-label {
+        font-weight: 600;
+        color: var(--text-primary);
+        font-size: 1rem;
+    }
+
+    .payment-check {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        background: var(--accent-gradient);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #1a1d2e;
+        font-size: 0.8rem;
+        font-weight: 700;
+        opacity: 0;
+        transform: scale(0);
+        transition: all 0.3s;
+    }
+
+    .payment-option.selected .payment-check {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .cash-details {
+        background: var(--input-bg);
+        padding: 1.5rem;
+        border-radius: 16px;
+        margin-bottom: 1.5rem;
+        border: 1px solid var(--border-color);
+        animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .cash-input {
+        font-size: 1.25rem;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .change-display {
+        margin-top: 1.5rem;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, rgba(168, 224, 99, 0.15) 0%, rgba(86, 171, 47, 0.1) 100%);
+        border-radius: 12px;
+        text-align: center;
+        animation: slideDown 0.3s ease;
+    }
+
+    .change-label {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .change-amount {
+        font-size: 2rem;
+        font-weight: 700;
+        background: var(--accent-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .other-payment-info {
+        background: var(--input-bg);
+        padding: 2rem;
+        border-radius: 16px;
+        margin-bottom: 1.5rem;
+        border: 1px solid var(--border-color);
+        text-align: center;
+        animation: slideDown 0.3s ease;
+    }
+
+    .payment-ready-message {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    .check-circle {
+        width: 2.5rem;
+        height: 2.5rem;
+        background: var(--accent-gradient);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #1a1d2e;
+        font-weight: 700;
+    }
+
+    .complete-payment-btn {
+        width: 100%;
+        padding: 1.25rem;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+
+    .complete-payment-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+    .cancel-btn {
+        width: 100%;
+        text-align: center;
+        display: block;
+    }
+
+    @media (max-width: 900px) {
+        .payment-page {
+            grid-template-columns: 1fr;
+        }
+
+        .payment-options {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .payment-options {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<script>
+    let selectedPaymentMethod = null;
+    const totalAmount = parseFloat(document.getElementById('total-amount').dataset.amount);
+    const completeBtn = document.getElementById('complete-payment-btn');
+    const cashDetails = document.getElementById('cash-details');
+    const otherPaymentInfo = document.getElementById('other-payment-info');
+    const changeDisplay = document.getElementById('change-display');
+
+    function selectPaymentMethod(method) {
+        // Update selection UI
+        document.querySelectorAll('.payment-option').forEach(opt => {
+            opt.classList.remove('selected');
+        });
+        document.querySelector(`[data-method="${method}"]`).classList.add('selected');
+
+        selectedPaymentMethod = method;
+
+        // Show/hide relevant sections
+        if (method === 'cash') {
+            cashDetails.style.display = 'block';
+            otherPaymentInfo.style.display = 'none';
+            document.getElementById('cash-received').focus();
+            calculateChange();
+        } else {
+            cashDetails.style.display = 'none';
+            otherPaymentInfo.style.display = 'block';
+            document.getElementById('payment-method-text').textContent =
+                method === 'card' ? 'Card payment selected' : 'UPI payment selected';
+            completeBtn.disabled = false;
+        }
+    }
+
+    function calculateChange() {
+        const cashReceived = parseFloat(document.getElementById('cash-received').value) || 0;
+
+        if (cashReceived >= totalAmount) {
+            const change = cashReceived - totalAmount;
+            document.getElementById('change-amount').textContent =
+                `₹${change.toFixed(2)}`;
+            changeDisplay.style.display = 'block';
+            completeBtn.disabled = false;
+        } else {
+            changeDisplay.style.display = 'none';
+            completeBtn.disabled = true;
+        }
+    }
+
+    completeBtn.addEventListener('click', async () => {
+        if (!selectedPaymentMethod) {
+            alert('Please select a payment method');
+            return;
+        }
+
+        completeBtn.disabled = true;
+        completeBtn.textContent = 'Processing...';
+
+        try {
+            const payload = {
+                payment_method: selectedPaymentMethod
+            };
+
+            if (selectedPaymentMethod === 'cash') {
+                payload.cash_received = parseFloat(document.getElementById('cash-received').value);
+            }
+
+            const res = await fetch('/pos/api/payment/{{ sale.id }}/process/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                window.location.href = `/pos/receipt/${data.sale_id}/`;
+            } else {
+                alert('Error: ' + data.error);
+                completeBtn.disabled = false;
+                completeBtn.textContent = 'Complete Payment';
+            }
+        } catch (err) {
+            alert('Payment failed. Please try again.');
+            console.error(err);
+            completeBtn.disabled = false;
+            completeBtn.textContent = 'Complete Payment';
+        }
+    });
+</script>
+{% endblock %}

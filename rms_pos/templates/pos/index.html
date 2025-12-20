@@ -234,19 +234,16 @@
             const data = await res.json();
 
             if (data.success) {
-                alert(`Sale completed! Receipt: ${data.receipt_number}`);
-                cart = [];
-                updateCartUI();
-                searchInput.value = '';
-                // Refresh product list to show updated stock
-                fetchProducts('');
+                // Redirect to payment page
+                window.location.href = `/pos/payment/${data.sale_id}/`;
             } else {
                 alert('Error: ' + data.error);
+                checkoutBtn.disabled = false;
+                checkoutBtn.textContent = 'Checkout';
             }
         } catch (err) {
             alert('Checkout failed. Please try again.');
             console.error(err);
-        } finally {
             checkoutBtn.disabled = false;
             checkoutBtn.textContent = 'Checkout';
         }
