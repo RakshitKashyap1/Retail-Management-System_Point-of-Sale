@@ -40,6 +40,228 @@
         color-scheme: dark;
         /* Helps with dark mode calendar */
     }
+
+    .print-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .print-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    }
+
+    .print-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .print-header {
+        display: none;
+    }
+
+    /* Print Styles */
+    @media print {
+
+        /* Hide navigation, filters, and non-essential elements */
+        .sidebar,
+        .topbar,
+        .view-filters,
+        .page-header,
+        .print-btn,
+        .cashier-avatar,
+        form,
+        .btn,
+        nav {
+            display: none !important;
+        }
+
+        /* Reset page layout */
+        body {
+            background: #fff !important;
+            color: #000 !important;
+            font-family: 'Arial', sans-serif;
+            padding: 0;
+            margin: 0;
+        }
+
+        .main-content {
+            margin-left: 0 !important;
+            padding: 0 !important;
+            background: #fff !important;
+        }
+
+        .card {
+            background: #fff !important;
+            border: 1px solid #ddd !important;
+            box-shadow: none !important;
+            margin: 0 !important;
+            border-radius: 0 !important;
+        }
+
+        .card-header {
+            background: #f5f5f5 !important;
+            border-bottom: 2px solid #333 !important;
+            padding: 10px 15px !important;
+        }
+
+        .card-header h3 {
+            color: #000 !important;
+            font-size: 14pt !important;
+        }
+
+        .card-body {
+            padding: 0 !important;
+        }
+
+        /* Print Header */
+        .print-header {
+            display: block !important;
+            text-align: center;
+            padding: 20px;
+            border-bottom: 3px solid #333;
+            margin-bottom: 20px;
+        }
+
+        .print-header h1 {
+            font-size: 24pt;
+            margin: 0 0 5px 0;
+            color: #000;
+            font-weight: 700;
+        }
+
+        .print-header .store-name {
+            font-size: 18pt;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .print-header .report-title {
+            font-size: 14pt;
+            font-weight: 600;
+            color: #555;
+            margin: 10px 0;
+        }
+
+        .print-header .report-date {
+            font-size: 12pt;
+            color: #666;
+        }
+
+        .print-header .print-timestamp {
+            font-size: 9pt;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10pt;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        thead tr {
+            background: #f0f0f0 !important;
+        }
+
+        th {
+            background: #e0e0e0 !important;
+            color: #000 !important;
+            font-weight: 700;
+            padding: 10px 8px !important;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        td {
+            padding: 8px !important;
+            border: 1px solid #ddd;
+            color: #000 !important;
+            vertical-align: top;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f9f9f9 !important;
+        }
+
+        .receipt-id {
+            color: #000 !important;
+            font-family: 'Courier New', monospace;
+        }
+
+        .amount-display {
+            color: #000 !important;
+            font-weight: 700;
+        }
+
+        /* Summary Section */
+        .print-summary {
+            display: block !important;
+            margin-top: 20px;
+            padding: 15px;
+            border: 2px solid #333;
+            background: #f5f5f5 !important;
+        }
+
+        .print-summary .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            font-size: 12pt;
+        }
+
+        .print-summary .summary-total {
+            font-size: 16pt;
+            font-weight: 700;
+            border-top: 2px solid #333;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        /* Page Break */
+        .page-break {
+            page-break-before: always;
+        }
+
+        @page {
+            margin: 1cm;
+            size: A4;
+        }
+
+        /* Hide stat card on print, show summary instead */
+        .stat-card {
+            display: none !important;
+        }
+
+        .mb-4 {
+            margin-bottom: 0 !important;
+        }
+
+        /* Hide non-print summary */
+        .no-print {
+            display: none !important;
+        }
+    }
+
+    .print-summary {
+        display: none;
+    }
 </style>
 
 <div class="page-header">
@@ -94,6 +316,14 @@
 </div>
 
 {% if view_type == 'daily' %}
+<!-- Print Header for Daily Report -->
+<div class="print-header">
+    <div class="store-name">RMS Point of Sale</div>
+    <h1>Daily Sales Report</h1>
+    <div class="report-date">Date: {{ selected_date|default:"All Dates" }}</div>
+    <div class="print-timestamp">Generated on: <span id="daily-print-time"></span></div>
+</div>
+
 <!-- Daily Sales Section -->
 <div class="card mb-4" style="margin-bottom: 2rem; border-color: rgba(168, 224, 99, 0.3);">
     <div class="card-body">
@@ -106,6 +336,15 @@
                         class="form-control" style="max-width: 250px;">
                 </div>
             </form>
+            <button class="print-btn" onclick="printDailyReport()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                    <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+                Print Daily Report
+            </button>
             <div class="stat-card"
                 style="padding: 1rem 2rem; min-width: 250px; text-align: right; background: rgba(168, 224, 99, 0.1);">
                 <div
@@ -169,7 +408,27 @@
     </div>
 </div>
 
+<!-- Print Summary for Daily -->
+<div class="print-summary">
+    <div class="summary-row">
+        <span>Total Transactions:</span>
+        <span>{{ sales|length }}</span>
+    </div>
+    <div class="summary-row summary-total">
+        <span>Total Sales:</span>
+        <span>{{ total_sales|rupee_paise }}</span>
+    </div>
+</div>
+
 {% elif view_type == 'monthly' %}
+<!-- Print Header for Monthly Report -->
+<div class="print-header">
+    <div class="store-name">RMS Point of Sale</div>
+    <h1>Monthly Sales Report</h1>
+    <div class="report-date">Month: {{ selected_month|default:"All Months" }}</div>
+    <div class="print-timestamp">Generated on: <span id="monthly-print-time"></span></div>
+</div>
+
 <!-- Monthly Sales Section -->
 <div class="card mb-4" style="margin-bottom: 2rem; border-color: rgba(79, 172, 254, 0.3);">
     <div class="card-body">
@@ -182,6 +441,15 @@
                         onchange="this.form.submit()" class="form-control" style="max-width: 250px;">
                 </div>
             </form>
+            <button class="print-btn" onclick="printMonthlyReport()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                    <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+                Print Monthly Report
+            </button>
             <div class="stat-card blue"
                 style="padding: 1rem 2rem; min-width: 250px; text-align: right; background: rgba(79, 172, 254, 0.1);">
                 <div
@@ -228,6 +496,18 @@
                 </tbody>
             </table>
         </div>
+    </div>
+</div>
+
+<!-- Print Summary for Monthly -->
+<div class="print-summary">
+    <div class="summary-row">
+        <span>Total Transactions:</span>
+        <span>{{ sales|length }}</span>
+    </div>
+    <div class="summary-row summary-total">
+        <span>Total Sales:</span>
+        <span>{{ total_sales|rupee_paise }}</span>
     </div>
 </div>
 
@@ -296,4 +576,31 @@
     </div>
 </div>
 {% endif %}
+
+<script>
+    // Print functions
+    function printDailyReport() {
+        // Set the print timestamp
+        const printTimeEl = document.getElementById('daily-print-time');
+        if (printTimeEl) {
+            printTimeEl.textContent = new Date().toLocaleString('en-IN', {
+                dateStyle: 'full',
+                timeStyle: 'short'
+            });
+        }
+        window.print();
+    }
+
+    function printMonthlyReport() {
+        // Set the print timestamp
+        const printTimeEl = document.getElementById('monthly-print-time');
+        if (printTimeEl) {
+            printTimeEl.textContent = new Date().toLocaleString('en-IN', {
+                dateStyle: 'full',
+                timeStyle: 'short'
+            });
+        }
+        window.print();
+    }
+</script>
 {% endblock %}

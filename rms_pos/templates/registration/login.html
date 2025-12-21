@@ -3,6 +3,24 @@
 {% block title %}Login - RMS POS{% endblock %}
 
 {% block content %}
+<style>
+    .register-link {
+        text-align: center;
+        margin-top: 1.5rem;
+        color: var(--text-secondary);
+    }
+
+    .register-link a {
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+    .register-link a:hover {
+        color: #764ba2;
+    }
+</style>
 <div class="login-container">
     <div class="login-card">
         <div class="text-center mb-8">
@@ -33,6 +51,10 @@
                 </button>
             </div>
         </form>
+
+        <div class="register-link">
+            New employee? <a href="{% url 'register' %}">Register with reference code</a>
+        </div>
     </div>
 </div>
 {% endblock %}

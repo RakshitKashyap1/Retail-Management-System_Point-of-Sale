@@ -28,6 +28,9 @@
                     <a href="{% url 'product_list' %}" class="nav-link">Products</a>
                     <a href="{% url 'pos_dashboard' %}" class="nav-link">POS</a>
                     <a href="{% url 'sales_list' %}" class="nav-link">Sales</a>
+                    {% if user.can_manage_users %}
+                    <a href="{% url 'user_management' %}" class="nav-link">Users</a>
+                    {% endif %}
                 </div>
             </div>
             <div class="nav-user">
