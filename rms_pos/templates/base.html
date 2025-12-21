@@ -19,54 +19,447 @@
 
 <body>
     {% if user.is_authenticated %}
-    <nav>
-        <div class="nav-container">
-            <div style="display: flex; align-items: center; gap: 2rem;">
-                <h1 class="nav-brand">RMS POS</h1>
-                <div class="nav-links">
-                    <a href="{% url 'inventory_dashboard' %}" class="nav-link">Dashboard</a>
-                    <a href="{% url 'product_list' %}" class="nav-link">Products</a>
-                    <a href="{% url 'pos_dashboard' %}" class="nav-link">POS</a>
-                    <a href="{% url 'sales_list' %}" class="nav-link">Sales</a>
-                    {% if user.can_manage_users %}
-                    <a href="{% url 'user_management' %}" class="nav-link">Users</a>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="nav-user">
-                <button id="theme-toggle" type="button" class="btn btn-secondary"
-                    style="padding: 0.5rem; display: flex; align-items: center; justify-content: center;"
-                    aria-label="Toggle theme">
-                    <!-- Sun Icon -->
-                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" style="display: none;">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                    <!-- Moon Icon -->
-                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                </button>
-                <div style="display: flex; flex-direction: column; line-height: 1.2;">
-                    <span style="font-size: 0.8rem; color: var(--text-secondary);">Welcome back,</span>
-                    <span style="font-weight: 600; color: var(--text-primary);">{{ user.username }}</span>
+    <style>
+        /* Top Navbar Styles */
+        .top-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1002;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .navbar-brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .navbar-user {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .navbar-greeting {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+            text-align: right;
+        }
+
+        .navbar-greeting-text {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .navbar-username {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .navbar-logout-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            color: #ef4444;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .navbar-logout-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        /* Collapsible Menu Styles */
+        .menu-toggle {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 18px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(4px, 4px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(4px, -4px);
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 60px);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .side-menu {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 280px;
+            height: calc(100% - 60px);
+            background: var(--card-bg);
+            border-right: 1px solid var(--border-color);
+            z-index: 1000;
+            transform: translateX(-100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .side-menu.active {
+            transform: translateX(0);
+        }
+
+        .menu-header {
+            padding: 1.25rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .menu-brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.75rem;
+        }
+
+        .menu-user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .user-role {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: capitalize;
+        }
+
+        .menu-nav {
+            flex: 1;
+            padding: 0.75rem 0;
+            overflow-y: auto;
+        }
+
+        .menu-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
+            padding: 0.875rem 1.25rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            font-size: 0.95rem;
+        }
+
+        .menu-nav-link:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-left-color: #667eea;
+            color: #667eea;
+        }
+
+        .menu-nav-link svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.8;
+        }
+
+        .menu-nav-link:hover svg {
+            opacity: 1;
+        }
+
+        .menu-divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 0.5rem 1.25rem;
+        }
+
+        .menu-footer {
+            padding: 1rem 1.25rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .theme-toggle-menu {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            color: var(--text-primary);
+            width: 100%;
+            font-size: 0.9rem;
+        }
+
+        .theme-toggle-menu:hover {
+            background: rgba(102, 126, 234, 0.2);
+        }
+
+        /* Adjust main content for navbar */
+        body {
+            padding-top: 60px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 500px) {
+            .side-menu {
+                width: 85%;
+            }
+
+            .navbar-greeting {
+                display: none;
+            }
+
+            .navbar-logout-btn span {
+                display: none;
+            }
+
+            .navbar-logout-btn {
+                padding: 0.5rem;
+            }
+        }
+
+        @media (max-width: 350px) {
+            .navbar-brand {
+                font-size: 1rem;
+            }
+        }
+    </style>
+
+    <!-- Top Navbar -->
+    <header class="top-navbar">
+        <div class="navbar-left">
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="navbar-brand">RMS POS</div>
+        </div>
+        <div class="navbar-right">
+            <div class="navbar-user">
+                <div class="navbar-greeting">
+                    <span class="navbar-greeting-text">Hello,</span>
+                    <span class="navbar-username">{{ user.username }}</span>
                 </div>
                 <form method="post" action="{% url 'logout' %}" style="margin: 0;">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-secondary">Logout</button>
+                    <button type="submit" class="navbar-logout-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                        <span>Logout</span>
+                    </button>
                 </form>
             </div>
+        </div>
+    </header>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Side Menu -->
+    <nav class="side-menu" id="sideMenu">
+        <div class="menu-header">
+            <div class="menu-brand">RMS POS</div>
+            <div class="menu-user-info">
+                <div class="user-avatar">{{ user.username|slice:":1"|upper }}</div>
+                <div class="user-details">
+                    <span class="user-name">{{ user.username }}</span>
+                    <span class="user-role">{{ user.role }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-nav">
+            <a href="{% url 'inventory_dashboard' %}" class="menu-nav-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                Dashboard
+            </a>
+            <a href="{% url 'product_list' %}" class="menu-nav-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                Products
+            </a>
+            <a href="{% url 'pos_dashboard' %}" class="menu-nav-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+                Point of Sale
+            </a>
+            <a href="{% url 'sales_list' %}" class="menu-nav-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+                Sales History
+            </a>
+            {% if user.can_manage_users %}
+            <div class="menu-divider"></div>
+            <a href="{% url 'user_management' %}" class="menu-nav-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                User Management
+            </a>
+            {% endif %}
+        </div>
+
+        <div class="menu-footer">
+            <button class="theme-toggle-menu" id="themeToggleMenu" type="button">
+                <!-- Sun Icon -->
+                <svg class="sun-icon-menu" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    style="display: none;">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <!-- Moon Icon -->
+                <svg class="moon-icon-menu" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+                <span class="theme-label">Toggle Theme</span>
+            </button>
         </div>
     </nav>
     {% endif %}
@@ -90,41 +483,83 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const themeToggle = document.getElementById('theme-toggle');
+            // Menu Toggle
+            const menuToggle = document.getElementById('menuToggle');
+            const menuOverlay = document.getElementById('menuOverlay');
+            const sideMenu = document.getElementById('sideMenu');
 
-            if (!themeToggle) return;
-
-            const sunIcon = themeToggle.querySelector('.sun-icon');
-            const moonIcon = themeToggle.querySelector('.moon-icon');
-
-            function updateIcons(isLight) {
-                if (isLight) {
-                    sunIcon.style.display = 'none';
-                    moonIcon.style.display = 'block';
-                } else {
-                    sunIcon.style.display = 'block';
-                    moonIcon.style.display = 'none';
-                }
+            function toggleMenu() {
+                menuToggle.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
+                sideMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
             }
 
-            // Sync with current class state
-            const isLight = document.documentElement.classList.contains('light-theme');
-            updateIcons(isLight);
+            if (menuToggle) {
+                menuToggle.addEventListener('click', toggleMenu);
+            }
 
-            themeToggle.addEventListener('click', function () {
-                // Toggle Class
-                document.documentElement.classList.toggle('light-theme');
+            if (menuOverlay) {
+                menuOverlay.addEventListener('click', toggleMenu);
+            }
 
-                // Check new state
-                const isNowLight = document.documentElement.classList.contains('light-theme');
-
-                // Save preference
-                localStorage.setItem('theme', isNowLight ? 'light' : 'dark');
-
-                // Update UI
-                updateIcons(isNowLight);
-                console.log('Theme toggled to:', isNowLight ? 'light' : 'dark');
+            // Close menu when clicking a nav link
+            const navLinks = document.querySelectorAll('.menu-nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function () {
+                    if (sideMenu && sideMenu.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
             });
+
+            // Close menu with Escape key
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && sideMenu && sideMenu.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+
+            // Theme Toggle (new menu version)
+            const themeToggleMenu = document.getElementById('themeToggleMenu');
+
+            if (themeToggleMenu) {
+                const sunIconMenu = themeToggleMenu.querySelector('.sun-icon-menu');
+                const moonIconMenu = themeToggleMenu.querySelector('.moon-icon-menu');
+                const themeLabel = themeToggleMenu.querySelector('.theme-label');
+
+                function updateMenuIcons(isLight) {
+                    if (sunIconMenu && moonIconMenu) {
+                        if (isLight) {
+                            sunIconMenu.style.display = 'none';
+                            moonIconMenu.style.display = 'block';
+                            if (themeLabel) themeLabel.textContent = 'Switch to Dark Mode';
+                        } else {
+                            sunIconMenu.style.display = 'block';
+                            moonIconMenu.style.display = 'none';
+                            if (themeLabel) themeLabel.textContent = 'Switch to Light Mode';
+                        }
+                    }
+                }
+
+                // Sync with current class state
+                const isLight = document.documentElement.classList.contains('light-theme');
+                updateMenuIcons(isLight);
+
+                themeToggleMenu.addEventListener('click', function () {
+                    // Toggle Class
+                    document.documentElement.classList.toggle('light-theme');
+
+                    // Check new state
+                    const isNowLight = document.documentElement.classList.contains('light-theme');
+
+                    // Save preference
+                    localStorage.setItem('theme', isNowLight ? 'light' : 'dark');
+
+                    // Update UI
+                    updateMenuIcons(isNowLight);
+                });
+            }
         });
     </script>
 </body>

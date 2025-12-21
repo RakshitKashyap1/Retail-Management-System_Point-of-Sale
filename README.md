@@ -1,24 +1,28 @@
 # Retail Management System + Point of Sale
 
-A full-featured retail management system with integrated POS built with Django and optimized with a premium dark UI.
+A full-featured retail management system with integrated POS built with Django and optimized with a premium responsive UI.
 
 ## Features
 
 - **Interactive Dashboard**: Centered overview with large, clickable stat cards for Total Products, Low Stock and Daily Sales.
-- **Advanced Filtering**: Quick-toggle pill-style filters on the product list (All, In Stock, Low Stock).
+- **Modern Navigation**: Fixed top navbar with a collapsible hamburger side menu and persistent brand visibility.
+- **User Management System**:
+  - **Role-based Access**: Admin, Manager, and Cashier permissions.
+  - **Invite-only Registration**: Unique reference codes for new users (expiring codes with role assignment).
+  - **Account Control**: Admins can activate/deactivate users and manage roles directly from the UI.
+- **Advanced Sales History & Reporting**:
+  - **Historical Trends**: Filter sales by all, daily, or monthly views.
+  - **Print-ready Reports**: Styled daily and monthly sales summaries for physical filing.
+  - **Transaction Tracking**: Detailed breakdown of items, payment methods (Cash/Card/UPI), and customer details.
 - **Point of Sale (POS)**: Fast checkout interface that automatically hides out-of-stock items for accuracy.
-- **Multi-Payment Support**: Accept Cash, Card, or UPI payments with automatic change calculation for cash transactions.
-- **Smart Receipts**: Auto-generated receipt numbers with itemized billing and payment details.
-- **Customer Loyalty Program**: Optional customer name and mobile number capture for loyalty tracking and SMS billing.
-- **Daily Performance**: Real-time tracking of daily revenue and sales volume on the admin dashboard.
-- **Dynamic Stock Alerts**: Visual stock level badges and dedicated replenishment filters.
-- **Premium UI**: Modern dark theme with glassmorphism, scaled-up statistics, and high-contrast visuals.
-- **Role-based Security**: Automated redirects and permission levels for Admin, Manager, and Cashier.
+- **Multi-Theme Support**: Instant toggle between Premium Dark Mode and Clean Light Mode with preference persistence.
+- **Responsive UI**: Mobile-first design ensures the dashboard, POS, and management tools work on phones, tablets, and desktops.
 
 ## Tech Stack
 
 - **Backend**: Django (Python)
 - **Frontend**: HTML, Custom CSS (Vanilla + Glassmorphism), JavaScript
+- **Icons**: SVG-based modern icon set
 - **Database**: SQLite (default)
 
 ## Installation
@@ -30,11 +34,13 @@ A full-featured retail management system with integrated POS built with Django a
 
 2. **Run migrations**:
    ```bash
-   python manage.py makemigrations
+   python manage.py makemigrations accounts
+   python manage.py makemigrations inventory
+   python manage.py makemigrations pos
    python manage.py migrate
    ```
 
-3. **Create superuser** (if not already created):
+3. **Create initial admin**:
    ```bash
    python manage.py createsuperuser
    ```
@@ -47,98 +53,52 @@ A full-featured retail management system with integrated POS built with Django a
    ```
 
 2. **Access the application**:
-   - Main app: http://127.0.0.1:8000/
-   - Admin panel: http://127.0.0.1:8000/admin/
+   - Main Dashboard: http://127.0.0.1:8000/
+   - User Management: http://127.0.0.1:8000/accounts/management/
    - Login: http://127.0.0.1:8000/accounts/login/
 
-## Default Credentials / Roles
-
-You can create users with different roles in the Admin Panel.
+## Role-based Access Control
 
 | Role | Permissions |
 |------|-------------|
-| **Admin** | Full access to Inventory, Analytics Dashboard, and User Management. |
-| **Manager** | Access to Inventory Dashboard and Product Management. |
-| **Cashier** | Access to POS interface only. |
-
-*Note: The default superuser created via `createsuperuser` has full admin access.*
+| **Admin** | Full access to Inventory, Sales Analytics, User Management, and Reference Code generation. |
+| **Manager** | Full access to Inventory and Sales History. Can manage products and stock levels. |
+| **Cashier** | Access to POS checkout interface and individual receipt generation. |
 
 ## Usage Guide
 
-### Analytics & Inventory (Admin/Manager)
-1. **Dashboard Overview**: View "Daily Sales" revenue and "Low Stock" counts at a glance.
-2. **Interactive Stats**: Click on any dashboard card to jump directly to the detailed view.
-3. **Smart Inventory**: Use the specialized filters (In Stock / Low Stock) to manage replenishment.
-4. **Product Management**: Add or edit products with images, barcodes, and automated inventory logging.
+### User Registration (New Users)
+1. **Reference Codes**: Admins generate unique codes for specific roles (Admin/Manager/Cashier).
+2. **Expiry**: Codes are valid for 7 days by default.
+3. **Registration**: New users register using these codes to automatically gain the correct role permissions.
 
-### POS Operations (Cashier)
-1. **Product Search**: Find products rapidly by name or by scanning a barcode.
-2. **Automated Stock Protection**: Items with zero stock are hidden to prevent invalid sales.
-3. **Cart Management**: Adjust quantities, remove items, and see real-time price totals with discounts.
-4. **Checkout Flow**:
-   - Click "Checkout" to proceed to the payment page
-   - Select payment method: **Cash**, **Card**, or **UPI**
-   - For cash payments: Enter the amount received and view the change to return
-   - Complete payment to generate receipt
+### Inventory & Management
+1. **Dashboard**: Fully responsive grid with auto-scaling stat cards.
+2. **Product List**: Advanced filtering for "Low Stock" items to streamline replenishment.
+3. **User Management**: Unified dashboard to manage active accounts and track user creation history.
 
-### Payment & Receipts
-1. **Payment Methods**: 
-   - 💵 **Cash**: Enter cash received, auto-calculates change to return
-   - 💳 **Card**: One-click payment confirmation
-   - 📱 **UPI**: One-click payment confirmation
-2. **Receipt Generation**: Each transaction generates a unique receipt number with:
-   - Itemized product list with quantities and prices
-   - Discount breakdown (if applicable)
-   - Payment method and cash change details
-   - Date, time, and cashier information
-3. **Customer Loyalty Program**: 
-   - Optionally capture customer name and mobile number
-   - Use for loyalty points tracking and SMS billing
-   - Skip option available for quick transactions
-
-### Sales History (Admin/Manager)
-1. **View All Sales**: Browse complete transaction history with receipt details.
-2. **Filter Options**: View sales by day or month using the calendar filters.
-3. **Transaction Details**: See itemized receipts, payment methods, and customer info.
+### POS & Sales
+1. **Quick POS**: Rapid item entry with automatic out-of-stock filtering.
+2. **Payment Processing**: Integrated change calculator for cash and confirmation for UPI/Card.
+3. **Sales History**: Print-ready daily/monthly summaries with timestamped reporting.
 
 ## Project Structure
 
 ```
-Retail Management System + Point of Sale/
+Retail-Management-System_Point-of-Sale/
 ├── manage.py
 ├── rms_pos/
-│   ├── settings.py
-│   ├── urls.py
-│   ├── accounts/         # User authentication
+│   ├── accounts/         # User roles, Reference codes & Management
 │   ├── inventory/        # Product & stock management
-│   ├── pos/              # Point of sale interface
-│   │   ├── models.py     # Sale, SaleItem with payment details
-│   │   ├── views.py      # POS, Payment, Receipt views
-│   │   └── urls.py       # POS routes
-│   ├── core/             # Core utilities
-│   ├── templates/        # HTML templates
-│   │   └── pos/
-│   │       ├── index.html      # Main POS interface
-│   │       ├── payment.html    # Payment selection page
-│   │       ├── receipt.html    # Receipt & customer details
-│   │       └── sales_list.html # Sales history
-│   ├── static/           # Static files (CSS, JS, Images)
-│   └── media/            # Uploaded files (Product images)
+│   ├── pos/              # POS logic & Sales tracking
+│   ├── templates/        # Unified templates with base.html layout
+│   │   ├── accounts/     # User mgmt & Registration
+│   │   ├── inventory/    # Responsive Dashboard
+│   │   └── pos/          # POS & Sales reports
+│   ├── static/           # CSS (Theme engine) & JS (Menu logic)
+│   └── media/            # Product images
 ```
 
-## Checkout Flow Diagram
-
-```
-┌─────────────┐    ┌──────────────┐    ┌─────────────────┐    ┌──────────────┐
-│   POS Page  │───▶│ Payment Page │───▶│ Process Payment │───▶│ Receipt Page │
-│ (Add Items) │    │ Cash/Card/UPI│    │ (Save to DB)    │    │ + Customer   │
-└─────────────┘    └──────────────┘    └─────────────────┘    └──────────────┘
-                          │                                           │
-                          │ Cash selected?                            │
-                          ▼                                           ▼
-                   ┌──────────────┐                          ┌──────────────┐
-                   │ Enter amount │                          │ Save customer│
-                   │ See change   │                          │ details (opt)│
-                   └──────────────┘                          └──────────────┘
-```
+---
+*Developed for efficient retail operations with focus on visual excellence and operational speed.*
 

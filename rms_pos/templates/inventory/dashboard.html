@@ -3,63 +3,274 @@
 {% block title %}Inventory Dashboard - RMS POS{% endblock %}
 
 {% block content %}
-<div class="page-header" style="justify-content: center; text-align: center; margin-bottom: 3rem;">
+<style>
+    .dashboard-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .dashboard-stat-card {
+        background: linear-gradient(135deg, rgba(168, 224, 99, 0.15) 0%, rgba(86, 171, 47, 0.1) 100%);
+        backdrop-filter: blur(10px);
+        padding: 1.5rem;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(168, 224, 99, 0.2);
+        transition: all 0.3s;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dashboard-stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(168, 224, 99, 0.3);
+    }
+
+    .dashboard-stat-card.blue {
+        background: linear-gradient(135deg, rgba(79, 172, 254, 0.15) 0%, rgba(0, 242, 254, 0.1) 100%);
+        border-color: rgba(79, 172, 254, 0.2);
+    }
+
+    .dashboard-stat-card.blue:hover {
+        box-shadow: 0 12px 40px rgba(79, 172, 254, 0.3);
+    }
+
+    .dashboard-stat-card.purple {
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(118, 75, 162, 0.1) 100%);
+        border-color: rgba(139, 92, 246, 0.2);
+    }
+
+    .dashboard-stat-card.purple:hover {
+        box-shadow: 0 12px 40px rgba(139, 92, 246, 0.3);
+    }
+
+    .dashboard-stat-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .dashboard-stat-icon {
+        width: 60px;
+        height: 60px;
+        min-width: 60px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+    }
+
+    .dashboard-stat-icon.green {
+        background: linear-gradient(135deg, #a8e063 0%, #56ab2f 100%);
+        box-shadow: 0 4px 15px rgba(168, 224, 99, 0.4);
+    }
+
+    .dashboard-stat-icon.blue {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+    }
+
+    .dashboard-stat-icon.purple {
+        background: linear-gradient(135deg, #8b5cf6 0%, #764ba2 100%);
+        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+    }
+
+    .dashboard-stat-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .dashboard-stat-title {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.25rem;
+    }
+
+    .dashboard-stat-value {
+        font-size: 2rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #a8e063 0%, #56ab2f 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        word-break: break-all;
+    }
+
+    .dashboard-stat-value.blue {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .dashboard-stat-value.purple {
+        background: linear-gradient(135deg, #8b5cf6 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .dashboard-stat-footer {
+        padding-top: 0.75rem;
+        border-top: 1px solid var(--border-color);
+        margin-top: 0.75rem;
+    }
+
+    .dashboard-badge {
+        display: inline-block;
+        padding: 0.35rem 0.75rem;
+        font-size: 0.7rem;
+        font-weight: 600;
+        border-radius: 20px;
+    }
+
+    .dashboard-badge.green {
+        background: linear-gradient(135deg, #a8e063 0%, #56ab2f 100%);
+        color: #1a1d2e;
+    }
+
+    .dashboard-badge.blue {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: #1a1d2e;
+    }
+
+    .dashboard-badge.purple {
+        background: linear-gradient(135deg, #8b5cf6 0%, #764ba2 100%);
+        color: #fff;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+        .dashboard-stats {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .dashboard-stat-card {
+            padding: 1.25rem;
+        }
+
+        .dashboard-stat-icon {
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            font-size: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .dashboard-stat-value {
+            font-size: 1.5rem;
+        }
+
+        .dashboard-stat-title {
+            font-size: 0.75rem;
+        }
+
+        .page-header {
+            margin-bottom: 1.5rem !important;
+        }
+
+        .page-title {
+            font-size: 1.5rem !important;
+        }
+
+        .page-subtitle {
+            font-size: 0.85rem;
+        }
+    }
+
+    @media (min-width: 601px) and (max-width: 900px) {
+        .dashboard-stats {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .dashboard-stat-value {
+            font-size: 1.75rem;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .dashboard-stats {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .dashboard-stat-value {
+            font-size: 2.5rem;
+        }
+
+        .dashboard-stat-card {
+            padding: 2rem;
+        }
+
+        .dashboard-stat-icon {
+            width: 70px;
+            height: 70px;
+            min-width: 70px;
+            font-size: 2rem;
+        }
+    }
+</style>
+
+<div class="page-header" style="justify-content: center; text-align: center; margin-bottom: 2rem;">
     <div>
         <h1 class="page-title">Retail Dashboard</h1>
         <p class="page-subtitle">Overview of your inventory and daily performance</p>
     </div>
 </div>
 
-<div style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-top: 3rem;">
+<div class="dashboard-stats">
     <!-- Card 1: Total Products -->
-    <a href="{% url 'product_list' %}" class="stat-card"
-        style="flex: 0 1 420px; text-decoration: none; cursor: pointer;">
-        <div class="stat-header">
-            <div class="stat-icon stat-icon-green">
+    <a href="{% url 'product_list' %}" class="dashboard-stat-card">
+        <div class="dashboard-stat-header">
+            <div class="dashboard-stat-icon green">
                 📦
             </div>
-            <div>
-                <div class="stat-title">Total Products</div>
-                <div class="stat-value">{{ total_products }}</div>
+            <div class="dashboard-stat-info">
+                <div class="dashboard-stat-title">Total Products</div>
+                <div class="dashboard-stat-value">{{ total_products }}</div>
             </div>
         </div>
-        <div class="stat-footer">
-            <span class="badge badge-green">Active Inventory</span>
+        <div class="dashboard-stat-footer">
+            <span class="dashboard-badge green">Active Inventory</span>
         </div>
     </a>
 
     <!-- Card 2: Low Stock -->
-    <a href="{% url 'product_list' %}?stock_status=low" class="stat-card blue"
-        style="flex: 0 1 420px; text-decoration: none; cursor: pointer;">
-        <div class="stat-header">
-            <div class="stat-icon stat-icon-blue">
+    <a href="{% url 'product_list' %}?stock_status=low" class="dashboard-stat-card blue">
+        <div class="dashboard-stat-header">
+            <div class="dashboard-stat-icon blue">
                 ⚠️
             </div>
-            <div>
-                <div class="stat-title">Low Stock Items</div>
-                <div class="stat-value blue">{{ low_stock }}</div>
+            <div class="dashboard-stat-info">
+                <div class="dashboard-stat-title">Low Stock Items</div>
+                <div class="dashboard-stat-value blue">{{ low_stock }}</div>
             </div>
         </div>
-        <div class="stat-footer">
-            <span class="badge badge-blue">Needs Reordering</span>
+        <div class="dashboard-stat-footer">
+            <span class="dashboard-badge blue">Needs Reordering</span>
         </div>
     </a>
 
     <!-- Card 3: Daily Sales -->
-    <a href="{% url 'sales_list' %}" class="stat-card purple"
-        style="flex: 0 1 420px; text-decoration: none; cursor: pointer;">
-        <div class="stat-header">
-            <div class="stat-icon stat-icon-purple" style="background-color: rgba(139, 92, 246, 0.1); color: #8b5cf6;">
+    <a href="{% url 'sales_list' %}" class="dashboard-stat-card purple">
+        <div class="dashboard-stat-header">
+            <div class="dashboard-stat-icon purple">
                 💰
             </div>
-            <div>
-                <div class="stat-title">Daily Sales</div>
-                <div class="stat-value purple" style="color: #8b5cf6;">₹{{ daily_sales }}</div>
+            <div class="dashboard-stat-info">
+                <div class="dashboard-stat-title">Daily Sales</div>
+                <div class="dashboard-stat-value purple">₹{{ daily_sales }}</div>
             </div>
         </div>
-        <div class="stat-footer">
-            <span class="badge badge-purple" style="background-color: rgba(139, 92, 246, 0.1); color: #8b5cf6;">Today's
-                Revenue</span>
+        <div class="dashboard-stat-footer">
+            <span class="dashboard-badge purple">Today's Revenue</span>
         </div>
     </a>
 </div>
