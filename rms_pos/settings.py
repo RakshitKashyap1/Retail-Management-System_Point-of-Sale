@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-*+_93wvo6hzwujjn4ev*cy#0)g@sc$(2lxjngjwjv!2!uqf$*8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*', '.vercel.app', 'now.sh', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -126,9 +126,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_DIRS = [os.path.join(BASE_DIR, 'rms_pos/static')] 
-
+STATICFILES_DIRS = [BASE_DIR / 'rms_pos' / 'static']
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app', 'https://*.now.sh']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -137,7 +139,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
 
-STATICFILES_DIRS = [BASE_DIR / 'rms_pos' / 'static']
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'rms_pos' / 'media'
 
