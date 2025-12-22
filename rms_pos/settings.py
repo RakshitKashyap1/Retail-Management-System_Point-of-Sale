@@ -16,7 +16,8 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 import sys
-sys.path.append(str(BASE_DIR / 'rms_pos'))
+sys.path.append(os.path.join(BASE_DIR, 'rms_pos'))
+sys.path.append(str(BASE_DIR))
 
 
 # Quick-start development settings - unsuitable for production
