@@ -1,0 +1,1772 @@
+[
+{
+  "model": "sessions.session",
+  "pk": "1v23fu5q40vhv880ijg0xmrgkfe8bxgq",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQRO_iGln-20tJnzNY66yNA8iR4qRC3J1ESgHdaN6bebOI21rj1vMSJ2JXJtnlt0s4PnM7AD2w3Wc-zm1dpsQPhZ-082Gm_Lqd7t9BxV73NSQAzME5UaTTylOwgBI8FGMpa1PI7jkQoVASvTIJtYWsBSAknYh9vtPvN8I:1vXLJj:yUGAtID3m-kJ4YLcG6hoXzkAKTh3IA1ysimOXSIjoYo",
+    "expire_date": "2026-01-04T15:25:55.034Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "49hcqil81qdglazc5kyu1dqqejhhj03w",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQRO_iGln-20tJnzNY66yNA8iR4qRC3J1ESgHdaN6bebOI21rj1vMSJ2JXJtnlt0s4PnM7AD2w3Wc-zm1dpsQPhZ-082Gm_Lqd7t9BxV73NSQAzME5UaTTylOwgBI8FGMpa1PI7jkQoVASvTIJtYWsBSAknYh9vtPvN8I:1vUpg7:g-EASjk4D-hNV-Wdpjw8f-0OuJlavwWgvGafKZjv-Ow",
+    "expire_date": "2025-12-28T17:14:39.929Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "51pwu3fawrly85gpgb0friuyl51l76bp",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQRO_iGln-20tJnzNY66yNA8iR4qRC3J1ESgHdaN6bebOI21rj1vMSJ2JXJtnlt0s4PnM7AD2w3Wc-zm1dpsQPhZ-082Gm_Lqd7t9BxV73NSQAzME5UaTTylOwgBI8FGMpa1PI7jkQoVASvTIJtYWsBSAknYh9vtPvN8I:1vR3Qz:zIWYjOSdBChilyDg_JKxYnoRMJNtRg2g5d4Okd-nKbw",
+    "expire_date": "2025-12-18T07:07:25.935Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "ps86vvg8c7quu8bz1wdtmohbwh4k29sz",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hAHBhCX7j0DmYGpVA1NSrsy3l2bdKHb_977L5VoXWpau8xpLOqsjDr8bkz5IW0D5U7tNuk8tWUeWW-K3mnX16nI87K7fweVev3WAgFNBCCwYlwQWxgD--hDNoN4h0iW0QawcLRucHxyxqBHDxKZ0av3B7dJNn4:1vRntq:ytZB5Gm-PI32RgfQmkUHUzN8hs0hpEkmppf_wGAcK1w",
+    "expire_date": "2025-12-20T08:44:18.273Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "t4ckbwfynm4ala6dxiqd9hsdm7lq41aj",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hCYUTq4dN8zkCkMUjUlKe3KeHfbpAvdvvf-f6vA61LC2mQOY1JXher0ywaOT5l2kR483auOdVrmcdB7og_bdF-TvG5H-3dQuJVtbdAAWINeMiTLQlZIvMNz9jbGjQM4C-iILHFHnLPjCxAjDimmDtXnC7bYNw4:1vW95F:VZ05fJlIcPhWqjfli5w1wBFMuqG-PABJzrzevQyx8Hc",
+    "expire_date": "2026-01-01T08:10:01.800Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "w6n5w9y9ptwio2tunv4xigzldw979l9q",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGlkx_lPS5wzW7nqNA8iR4qRC3B0ipYD2zcx7iQTbWtPWeUlTFhdhxel3Q6AHtx3kO7TbLGlu6zKh3BV50C7HOfPzerh_BxV6_daONQxMtjhlo9WB8czFYIne5wgUGFBZJKcgDDGgh0hUHEZtggYyJN4fBKI42Q:1vVMiZ:2MXifFy1NwyJA0JuOtxfuYMPKYQwOsQ_SoJuTiOz01E",
+    "expire_date": "2025-12-30T04:31:23.293Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "wm1l1t3879ec0cyinobnv4etnivgvbq0",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQRO_iGln-20tJnzNY66yNA8iR4qRC3J1ESgHdaN6bebOI21rj1vMSJ2JXJtnlt0s4PnM7AD2w3Wc-zm1dpsQPhZ-082Gm_Lqd7t9BxV73NSQAzME5UaTTylOwgBI8FGMpa1PI7jkQoVASvTIJtYWsBSAknYh9vtPvN8I:1vXNBZ:uzIc5RSG4PvV2lh_so6z3gd1hJnenJ7qqAx8G3llrV4",
+    "expire_date": "2026-01-04T17:25:37.641Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "xasr96n85phtw1j3wij5wecpkwgekcvr",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQRO_iGln-20tJnzNY66yNA8iR4qRC3J1ESgHdaN6bebOI21rj1vMSJ2JXJtnlt0s4PnM7AD2w3Wc-zm1dpsQPhZ-082Gm_Lqd7t9BxV73NSQAzME5UaTTylOwgBI8FGMpa1PI7jkQoVASvTIJtYWsBSAknYh9vtPvN8I:1vVvW9:GbZha7AXr9npGNbByL5QM7Hb5gXHBzH9xAlxAA6GlCo",
+    "expire_date": "2025-12-31T17:40:53.971Z"
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$Mg2Lb5sACdVaWQMC9Q72GX$poftKPNYGLYRtM1+s+3qHaPiJeJ7RYN0Pww7b9AO1r4=",
+    "last_login": "2025-12-21T17:25:37.608Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@example.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-12-03T15:46:06.911Z",
+    "role": "admin",
+    "created_by": null,
+    "created_at": "2025-12-21T15:20:03.718Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$O4Y8JhWV2DoTYkxcFyplWS$PdBQv7a6rltq9aRNc6hCCHUD/NDpjoFJSPNnMoZK9Bs=",
+    "last_login": "2025-12-21T17:24:17.418Z",
+    "is_superuser": false,
+    "username": "cashier",
+    "first_name": "",
+    "last_name": "",
+    "email": "cashier@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-03T15:46:07.735Z",
+    "role": "cashier",
+    "created_by": null,
+    "created_at": "2025-12-21T15:20:03.718Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$b3Wo4qU3vuIhiiji2KJIin$fgdilet+NRAwQo5MWAxP9U65HK7o2kuyymkf3uAnrLA=",
+    "last_login": "2025-12-18T08:10:01.788Z",
+    "is_superuser": false,
+    "username": "manager",
+    "first_name": "",
+    "last_name": "",
+    "email": "manager@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-03T15:46:09.533Z",
+    "role": "manager",
+    "created_by": null,
+    "created_at": "2025-12-21T15:20:03.718Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$rMjXMufKQ4lyllR86rH09a$hA1yqIoFlXpjob5RIPsBhsgxXZejq2dtGT+6rnO1Hfg=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "agent_user",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@example.com",
+    "is_staff": false,
+    "is_active": false,
+    "date_joined": "2025-12-16T04:28:22.874Z",
+    "role": "cashier",
+    "created_by": null,
+    "created_at": "2025-12-21T15:20:03.718Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$avIHG7vcOmNkqTdWFKs1Sz$GJ8PXm/+k0LKeeOsrR93Ok8WggFcOv8hHpEMaQTFJhk=",
+    "last_login": "2025-12-16T04:31:23.212Z",
+    "is_superuser": true,
+    "username": "agent_admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@example.com",
+    "is_staff": true,
+    "is_active": false,
+    "date_joined": "2025-12-16T04:28:51.517Z",
+    "role": "cashier",
+    "created_by": null,
+    "created_at": "2025-12-21T15:20:03.718Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.referencecode",
+  "pk": 2,
+  "fields": {
+    "code": "997E65A6",
+    "created_by": 1,
+    "role_for": "cashier",
+    "is_used": false,
+    "used_by": null,
+    "created_at": "2025-12-21T17:25:51.705Z",
+    "expires_at": "2025-12-28T17:25:51.705Z"
+  }
+},
+{
+  "model": "inventory.category",
+  "pk": 1,
+  "fields": {
+    "name": "Electronics",
+    "description": "Electronic items and gadgets"
+  }
+},
+{
+  "model": "inventory.category",
+  "pk": 2,
+  "fields": {
+    "name": "Groceries",
+    "description": "Food and household items"
+  }
+},
+{
+  "model": "inventory.category",
+  "pk": 3,
+  "fields": {
+    "name": "Clothing",
+    "description": "Apparel and accessories"
+  }
+},
+{
+  "model": "inventory.product",
+  "pk": 1,
+  "fields": {
+    "name": "Laptop",
+    "category": 1,
+    "barcode": "1234567890",
+    "price": "999.99",
+    "discount_percentage": "10.00",
+    "cost": "750.00",
+    "stock_quantity": 456,
+    "image": "",
+    "created_at": "2025-12-03T15:49:00.193Z",
+    "updated_at": "2025-12-20T18:56:13.787Z"
+  }
+},
+{
+  "model": "inventory.product",
+  "pk": 2,
+  "fields": {
+    "name": "Wireless Mouse",
+    "category": 1,
+    "barcode": "0987654321",
+    "price": "29.99",
+    "discount_percentage": "0.00",
+    "cost": "15.00",
+    "stock_quantity": 35,
+    "image": "",
+    "created_at": "2025-12-03T15:49:00.212Z",
+    "updated_at": "2025-12-21T17:24:30.116Z"
+  }
+},
+{
+  "model": "inventory.product",
+  "pk": 3,
+  "fields": {
+    "name": "USB Keyboard",
+    "category": 1,
+    "barcode": "1111111111",
+    "price": "49.99",
+    "discount_percentage": "0.00",
+    "cost": "25.00",
+    "stock_quantity": 27,
+    "image": "",
+    "created_at": "2025-12-03T15:49:00.238Z",
+    "updated_at": "2025-12-20T18:57:32.940Z"
+  }
+},
+{
+  "model": "inventory.product",
+  "pk": 4,
+  "fields": {
+    "name": "Milk 1L",
+    "category": 2,
+    "barcode": "2222222222",
+    "price": "3.99",
+    "discount_percentage": "0.00",
+    "cost": "2.50",
+    "stock_quantity": 93,
+    "image": "",
+    "created_at": "2025-12-03T15:49:00.267Z",
+    "updated_at": "2025-12-21T17:24:30.122Z"
+  }
+},
+{
+  "model": "inventory.product",
+  "pk": 5,
+  "fields": {
+    "name": "Bread Loaf",
+    "category": 2,
+    "barcode": "3333333333",
+    "price": "2.99",
+    "discount_percentage": "0.00",
+    "cost": "1.50",
+    "stock_quantity": 0,
+    "image": "",
+    "created_at": "2025-12-03T15:49:00.301Z",
+    "updated_at": "2025-12-12T13:34:54.961Z"
+  }
+},
+{
+  "model": "inventory.product",
+  "pk": 6,
+  "fields": {
+    "name": "Coffee Beans 500g",
+    "category": 2,
+    "barcode": "4444444444",
+    "price": "12.99",
+    "discount_percentage": "0.00",
+    "cost": "8.00",
+    "stock_quantity": 0,
+    "image": "",
+    "created_at": "2025-12-03T15:49:00.325Z",
+    "updated_at": "2025-12-16T05:29:50.260Z"
+  }
+},
+{
+  "model": "inventory.product",
+  "pk": 7,
+  "fields": {
+    "name": "T-Shirt",
+    "category": 3,
+    "barcode": "5555555555",
+    "price": "19.99",
+    "discount_percentage": "0.00",
+    "cost": "10.00",
+    "stock_quantity": 58,
+    "image": "",
+    "created_at": "2025-12-03T15:49:00.351Z",
+    "updated_at": "2025-12-16T04:41:23.896Z"
+  }
+},
+{
+  "model": "inventory.product",
+  "pk": 8,
+  "fields": {
+    "name": "Jeans",
+    "category": 3,
+    "barcode": "6666666666",
+    "price": "49.99",
+    "discount_percentage": "0.00",
+    "cost": "30.00",
+    "stock_quantity": 15,
+    "image": "",
+    "created_at": "2025-12-03T15:49:00.375Z",
+    "updated_at": "2025-12-20T18:57:32.931Z"
+  }
+},
+{
+  "model": "inventory.product",
+  "pk": 9,
+  "fields": {
+    "name": "5r26r2",
+    "category": 2,
+    "barcode": "huixhx",
+    "price": "7.00",
+    "discount_percentage": "0.00",
+    "cost": "10.00",
+    "stock_quantity": 0,
+    "image": "",
+    "created_at": "2025-12-12T13:38:31.513Z",
+    "updated_at": "2025-12-18T13:37:50.742Z"
+  }
+},
+{
+  "model": "inventory.product",
+  "pk": 10,
+  "fields": {
+    "name": "Mobile Phone",
+    "category": 1,
+    "barcode": "4662345678864",
+    "price": "19999.99",
+    "discount_percentage": "5.00",
+    "cost": "99999999.00",
+    "stock_quantity": 89,
+    "image": "",
+    "created_at": "2025-12-18T05:18:31.218Z",
+    "updated_at": "2025-12-21T17:24:30.103Z"
+  }
+},
+{
+  "model": "inventory.product",
+  "pk": 11,
+  "fields": {
+    "name": "prince",
+    "category": 3,
+    "barcode": "123456",
+    "price": "200.00",
+    "discount_percentage": "0.00",
+    "cost": "130.00",
+    "stock_quantity": 12,
+    "image": "",
+    "created_at": "2025-12-18T08:04:54.628Z",
+    "updated_at": "2025-12-21T17:24:30.110Z"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 1,
+  "fields": {
+    "product": 1,
+    "action": "add",
+    "quantity": 40,
+    "timestamp": "2025-12-03T16:56:17.446Z",
+    "user": 3,
+    "note": "Manual update"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 2,
+  "fields": {
+    "product": 6,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-03T17:31:59.604Z",
+    "user": 1,
+    "note": "Sale B2594A0E"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 3,
+  "fields": {
+    "product": 5,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-03T17:31:59.610Z",
+    "user": 1,
+    "note": "Sale B2594A0E"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 4,
+  "fields": {
+    "product": 1,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-03T17:51:38.664Z",
+    "user": 1,
+    "note": "Sale 3180F629"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 5,
+  "fields": {
+    "product": 2,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-03T17:51:38.668Z",
+    "user": 1,
+    "note": "Sale 3180F629"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 6,
+  "fields": {
+    "product": 3,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-03T17:51:38.671Z",
+    "user": 1,
+    "note": "Sale 3180F629"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 7,
+  "fields": {
+    "product": 1,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-04T05:25:15.663Z",
+    "user": 1,
+    "note": "Sale 596F94C5"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 8,
+  "fields": {
+    "product": 2,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-04T05:25:15.666Z",
+    "user": 1,
+    "note": "Sale 596F94C5"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 9,
+  "fields": {
+    "product": 8,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-04T05:31:12.161Z",
+    "user": 2,
+    "note": "Sale A6C0408C"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 10,
+  "fields": {
+    "product": 6,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-04T05:31:12.164Z",
+    "user": 2,
+    "note": "Sale A6C0408C"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 11,
+  "fields": {
+    "product": 1,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-06T08:42:13.787Z",
+    "user": 1,
+    "note": "Sale 40A63CCE"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 12,
+  "fields": {
+    "product": 2,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-06T08:42:13.793Z",
+    "user": 1,
+    "note": "Sale 40A63CCE"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 13,
+  "fields": {
+    "product": 3,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-06T08:42:13.796Z",
+    "user": 1,
+    "note": "Sale 40A63CCE"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 14,
+  "fields": {
+    "product": 8,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-06T08:42:13.798Z",
+    "user": 1,
+    "note": "Sale 40A63CCE"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 15,
+  "fields": {
+    "product": 7,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-06T08:42:13.801Z",
+    "user": 1,
+    "note": "Sale 40A63CCE"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 16,
+  "fields": {
+    "product": 2,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-06T17:26:55.491Z",
+    "user": 1,
+    "note": "Sale ED55E682"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 17,
+  "fields": {
+    "product": 6,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-06T17:26:55.498Z",
+    "user": 1,
+    "note": "Sale ED55E682"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 18,
+  "fields": {
+    "product": 6,
+    "action": "remove",
+    "quantity": 34,
+    "timestamp": "2025-12-06T17:32:57.466Z",
+    "user": 1,
+    "note": "Manual update"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 19,
+  "fields": {
+    "product": 6,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-12T13:34:54.957Z",
+    "user": 1,
+    "note": "Sale 57BEE5CE"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 20,
+  "fields": {
+    "product": 5,
+    "action": "sale",
+    "quantity": 74,
+    "timestamp": "2025-12-12T13:34:54.963Z",
+    "user": 1,
+    "note": "Sale 57BEE5CE"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 21,
+  "fields": {
+    "product": 9,
+    "action": "add",
+    "quantity": 20,
+    "timestamp": "2025-12-12T13:38:31.523Z",
+    "user": 1,
+    "note": "Initial stock"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 22,
+  "fields": {
+    "product": 7,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-16T04:41:23.898Z",
+    "user": 1,
+    "note": "Sale 54B5D91F"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 23,
+  "fields": {
+    "product": 8,
+    "action": "sale",
+    "quantity": 3,
+    "timestamp": "2025-12-16T04:41:23.904Z",
+    "user": 1,
+    "note": "Sale 54B5D91F"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 24,
+  "fields": {
+    "product": 2,
+    "action": "sale",
+    "quantity": 9,
+    "timestamp": "2025-12-16T04:41:37.403Z",
+    "user": 1,
+    "note": "Sale 3268E8A7"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 25,
+  "fields": {
+    "product": 8,
+    "action": "sale",
+    "quantity": 4,
+    "timestamp": "2025-12-16T04:54:09.592Z",
+    "user": 1,
+    "note": "Sale A70CC045"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 26,
+  "fields": {
+    "product": 1,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-16T05:27:57.947Z",
+    "user": 1,
+    "note": "Sale 74EBEB52"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 27,
+  "fields": {
+    "product": 6,
+    "action": "sale",
+    "quantity": 2,
+    "timestamp": "2025-12-16T05:29:50.262Z",
+    "user": 1,
+    "note": "Sale 11E6D47F"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 28,
+  "fields": {
+    "product": 4,
+    "action": "sale",
+    "quantity": 5,
+    "timestamp": "2025-12-16T05:32:45.950Z",
+    "user": 1,
+    "note": "Sale 7F766A0D"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 29,
+  "fields": {
+    "product": 10,
+    "action": "add",
+    "quantity": 100,
+    "timestamp": "2025-12-18T05:18:31.235Z",
+    "user": 1,
+    "note": "Initial stock"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 30,
+  "fields": {
+    "product": 10,
+    "action": "sale",
+    "quantity": 2,
+    "timestamp": "2025-12-18T08:02:34.352Z",
+    "user": 1,
+    "note": "Sale 7B2BAE1B"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 31,
+  "fields": {
+    "product": 1,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-18T08:02:34.357Z",
+    "user": 1,
+    "note": "Sale 7B2BAE1B"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 32,
+  "fields": {
+    "product": 11,
+    "action": "add",
+    "quantity": 20,
+    "timestamp": "2025-12-18T08:04:54.641Z",
+    "user": 1,
+    "note": "Initial stock"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 33,
+  "fields": {
+    "product": 11,
+    "action": "sale",
+    "quantity": 5,
+    "timestamp": "2025-12-18T08:05:30.893Z",
+    "user": 1,
+    "note": "Sale 2C849E86"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 34,
+  "fields": {
+    "product": 9,
+    "action": "sale",
+    "quantity": 20,
+    "timestamp": "2025-12-18T13:37:50.747Z",
+    "user": 1,
+    "note": "Sale 2F245959"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 35,
+  "fields": {
+    "product": 10,
+    "action": "sale",
+    "quantity": 6,
+    "timestamp": "2025-12-18T13:38:57.840Z",
+    "user": 1,
+    "note": "Sale 4F586DDB"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 36,
+  "fields": {
+    "product": 1,
+    "action": "add",
+    "quantity": 413,
+    "timestamp": "2025-12-18T13:40:59.849Z",
+    "user": 1,
+    "note": "Manual update"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 37,
+  "fields": {
+    "product": 1,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-20T18:49:50.258Z",
+    "user": 1,
+    "note": "Sale 239EDEC6"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 38,
+  "fields": {
+    "product": 10,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-20T18:56:13.783Z",
+    "user": 1,
+    "note": "Sale 71247C5D"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 39,
+  "fields": {
+    "product": 1,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-20T18:56:13.788Z",
+    "user": 1,
+    "note": "Sale 71247C5D"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 40,
+  "fields": {
+    "product": 8,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-20T18:57:32.933Z",
+    "user": 1,
+    "note": "Sale 533D86E2"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 41,
+  "fields": {
+    "product": 3,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-20T18:57:32.941Z",
+    "user": 1,
+    "note": "Sale 533D86E2"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 42,
+  "fields": {
+    "product": 11,
+    "action": "sale",
+    "quantity": 1,
+    "timestamp": "2025-12-20T18:58:34.513Z",
+    "user": 1,
+    "note": "Sale 44708694"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 43,
+  "fields": {
+    "product": 10,
+    "action": "sale",
+    "quantity": 2,
+    "timestamp": "2025-12-21T17:24:30.106Z",
+    "user": 2,
+    "note": "Sale AF8E1557"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 44,
+  "fields": {
+    "product": 11,
+    "action": "sale",
+    "quantity": 2,
+    "timestamp": "2025-12-21T17:24:30.112Z",
+    "user": 2,
+    "note": "Sale AF8E1557"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 45,
+  "fields": {
+    "product": 2,
+    "action": "sale",
+    "quantity": 2,
+    "timestamp": "2025-12-21T17:24:30.118Z",
+    "user": 2,
+    "note": "Sale AF8E1557"
+  }
+},
+{
+  "model": "inventory.inventorylog",
+  "pk": 46,
+  "fields": {
+    "product": 4,
+    "action": "sale",
+    "quantity": 2,
+    "timestamp": "2025-12-21T17:24:30.124Z",
+    "user": 2,
+    "note": "Sale AF8E1557"
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 1,
+  "fields": {
+    "cashier": 1,
+    "total_amount": "15.98",
+    "tax_amount": "0.00",
+    "discount_amount": "0.00",
+    "created_at": "2025-12-03T17:31:59.595Z",
+    "receipt_number": "B2594A0E",
+    "payment_method": "cash",
+    "cash_received": null,
+    "change_amount": null,
+    "customer_name": "",
+    "customer_mobile": "",
+    "is_completed": false
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 2,
+  "fields": {
+    "cashier": 1,
+    "total_amount": "1079.97",
+    "tax_amount": "0.00",
+    "discount_amount": "0.00",
+    "created_at": "2025-12-03T17:51:38.654Z",
+    "receipt_number": "3180F629",
+    "payment_method": "cash",
+    "cash_received": null,
+    "change_amount": null,
+    "customer_name": "",
+    "customer_mobile": "",
+    "is_completed": false
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 3,
+  "fields": {
+    "cashier": 1,
+    "total_amount": "1029.98",
+    "tax_amount": "0.00",
+    "discount_amount": "0.00",
+    "created_at": "2025-12-04T05:25:15.653Z",
+    "receipt_number": "596F94C5",
+    "payment_method": "cash",
+    "cash_received": null,
+    "change_amount": null,
+    "customer_name": "",
+    "customer_mobile": "",
+    "is_completed": false
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 4,
+  "fields": {
+    "cashier": 2,
+    "total_amount": "62.98",
+    "tax_amount": "0.00",
+    "discount_amount": "0.00",
+    "created_at": "2025-12-04T05:31:12.151Z",
+    "receipt_number": "A6C0408C",
+    "payment_method": "cash",
+    "cash_received": null,
+    "change_amount": null,
+    "customer_name": "",
+    "customer_mobile": "",
+    "is_completed": false
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 5,
+  "fields": {
+    "cashier": 1,
+    "total_amount": "1149.95",
+    "tax_amount": "0.00",
+    "discount_amount": "0.00",
+    "created_at": "2025-12-06T08:42:13.773Z",
+    "receipt_number": "40A63CCE",
+    "payment_method": "cash",
+    "cash_received": null,
+    "change_amount": null,
+    "customer_name": "",
+    "customer_mobile": "",
+    "is_completed": false
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 6,
+  "fields": {
+    "cashier": 1,
+    "total_amount": "42.98",
+    "tax_amount": "0.00",
+    "discount_amount": "0.00",
+    "created_at": "2025-12-06T17:26:55.479Z",
+    "receipt_number": "ED55E682",
+    "payment_method": "cash",
+    "cash_received": null,
+    "change_amount": null,
+    "customer_name": "",
+    "customer_mobile": "",
+    "is_completed": false
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 7,
+  "fields": {
+    "cashier": 1,
+    "total_amount": "234.25",
+    "tax_amount": "0.00",
+    "discount_amount": "0.00",
+    "created_at": "2025-12-12T13:34:54.949Z",
+    "receipt_number": "57BEE5CE",
+    "payment_method": "cash",
+    "cash_received": null,
+    "change_amount": null,
+    "customer_name": "",
+    "customer_mobile": "",
+    "is_completed": false
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 8,
+  "fields": {
+    "cashier": 1,
+    "total_amount": "169.96",
+    "tax_amount": "0.00",
+    "discount_amount": "0.00",
+    "created_at": "2025-12-16T04:41:23.891Z",
+    "receipt_number": "54B5D91F",
+    "payment_method": "cash",
+    "cash_received": null,
+    "change_amount": null,
+    "customer_name": "",
+    "customer_mobile": "",
+    "is_completed": false
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 9,
+  "fields": {
+    "cashier": 1,
+    "total_amount": "269.91",
+    "tax_amount": "0.00",
+    "discount_amount": "0.00",
+    "created_at": "2025-12-16T04:41:37.393Z",
+    "receipt_number": "3268E8A7",
+    "payment_method": "cash",
+    "cash_received": null,
+    "change_amount": null,
+    "customer_name": "",
+    "customer_mobile": "",
+    "is_completed": false
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 10,
+  "fields": {
+    "cashier": 1,
+    "total_amount": "199.96",
+    "tax_amount": "0.00",
+    "discount_amount": "0.00",
+    "created_at": "2025-12-16T04:54:09.583Z",
+    "receipt_number": "A70CC045",
+    "payment_method": "cash",
+    "cash_received": null,
+    "change_amount": null,
+    "customer_name": "",
+    "customer_mobile": "",
+    "is_completed": false
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 11,
+  "fields": {
+    "cashier": 1,
+    "total_amount": "899.99",
+    "tax_amount": "0.00",
+    "discount_amount": "100.00",
+    "created_at": "2025-12-16T05:27:57.933Z",
+    "receipt_number": "74EBEB52",
+    "payment_method": "cash",
+    "cash_received": null,
+    "change_amount": null,
+    "customer_name": "",
+    "customer_mobile": "",
+    "is_completed": false
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 12,
+  "fields": {
+    "cashier": 1,
+    "total_amount": "25.98",
+    "tax_amount": "0.00",
+    "discount_amount": "0.00",
+    "created_at": "2025-12-16T05:29:50.254Z",
+    "receipt_number": "11E6D47F",
+    "payment_method": "cash",
+    "cash_received": null,
+    "change_amount": null,
+    "customer_name": "",
+    "customer_mobile": "",
+    "is_completed": false
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 13,
+  "fields": {
+    "cashier": 1,
+    "total_amount": "19.95",
+    "tax_amount": "0.00",
+    "discount_amount": "0.00",
+    "created_at": "2025-12-16T05:32:45.943Z",
+    "receipt_number": "7F766A0D",
+    "payment_method": "cash",
+    "cash_received": null,
+    "change_amount": null,
+    "customer_name": "",
+    "customer_mobile": "",
+    "is_completed": false
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 14,
+  "fields": {
+    "cashier": 1,
+    "total_amount": "38899.97",
+    "tax_amount": "0.00",
+    "discount_amount": "2100.00",
+    "created_at": "2025-12-18T08:02:34.337Z",
+    "receipt_number": "7B2BAE1B",
+    "payment_method": "cash",
+    "cash_received": null,
+    "change_amount": null,
+    "customer_name": "",
+    "customer_mobile": "",
+    "is_completed": false
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 15,
+  "fields": {
+    "cashier": 1,
+    "total_amount": "1000.00",
+    "tax_amount": "0.00",
+    "discount_amount": "0.00",
+    "created_at": "2025-12-18T08:05:30.884Z",
+    "receipt_number": "2C849E86",
+    "payment_method": "cash",
+    "cash_received": null,
+    "change_amount": null,
+    "customer_name": "",
+    "customer_mobile": "",
+    "is_completed": false
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 16,
+  "fields": {
+    "cashier": 1,
+    "total_amount": "140.00",
+    "tax_amount": "0.00",
+    "discount_amount": "0.00",
+    "created_at": "2025-12-18T13:37:50.732Z",
+    "receipt_number": "2F245959",
+    "payment_method": "cash",
+    "cash_received": null,
+    "change_amount": null,
+    "customer_name": "",
+    "customer_mobile": "",
+    "is_completed": false
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 17,
+  "fields": {
+    "cashier": 1,
+    "total_amount": "113999.94",
+    "tax_amount": "0.00",
+    "discount_amount": "6000.00",
+    "created_at": "2025-12-18T13:38:57.828Z",
+    "receipt_number": "4F586DDB",
+    "payment_method": "cash",
+    "cash_received": null,
+    "change_amount": null,
+    "customer_name": "",
+    "customer_mobile": "",
+    "is_completed": false
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 18,
+  "fields": {
+    "cashier": 1,
+    "total_amount": "899.99",
+    "tax_amount": "0.00",
+    "discount_amount": "100.00",
+    "created_at": "2025-12-20T18:49:50.244Z",
+    "receipt_number": "239EDEC6",
+    "payment_method": "cash",
+    "cash_received": "1000.00",
+    "change_amount": "100.01",
+    "customer_name": "",
+    "customer_mobile": "",
+    "is_completed": true
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 19,
+  "fields": {
+    "cashier": 1,
+    "total_amount": "19899.98",
+    "tax_amount": "0.00",
+    "discount_amount": "1100.00",
+    "created_at": "2025-12-20T18:56:13.772Z",
+    "receipt_number": "71247C5D",
+    "payment_method": "upi",
+    "cash_received": null,
+    "change_amount": null,
+    "customer_name": "",
+    "customer_mobile": "9065653212",
+    "is_completed": true
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 20,
+  "fields": {
+    "cashier": 1,
+    "total_amount": "99.98",
+    "tax_amount": "0.00",
+    "discount_amount": "0.00",
+    "created_at": "2025-12-20T18:57:32.920Z",
+    "receipt_number": "533D86E2",
+    "payment_method": "cash",
+    "cash_received": "500.00",
+    "change_amount": "400.02",
+    "customer_name": "",
+    "customer_mobile": "",
+    "is_completed": true
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 21,
+  "fields": {
+    "cashier": 1,
+    "total_amount": "200.00",
+    "tax_amount": "0.00",
+    "discount_amount": "0.00",
+    "created_at": "2025-12-20T18:58:34.503Z",
+    "receipt_number": "44708694",
+    "payment_method": "cash",
+    "cash_received": "200.00",
+    "change_amount": "0.00",
+    "customer_name": "",
+    "customer_mobile": "",
+    "is_completed": true
+  }
+},
+{
+  "model": "pos.sale",
+  "pk": 22,
+  "fields": {
+    "cashier": 2,
+    "total_amount": "38467.94",
+    "tax_amount": "0.00",
+    "discount_amount": "2000.00",
+    "created_at": "2025-12-21T17:24:30.095Z",
+    "receipt_number": "AF8E1557",
+    "payment_method": "cash",
+    "cash_received": "40000.00",
+    "change_amount": "1532.06",
+    "customer_name": "",
+    "customer_mobile": "9065653212",
+    "is_completed": true
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 1,
+  "fields": {
+    "sale": 1,
+    "product": 6,
+    "quantity": 1,
+    "price_at_sale": "12.99",
+    "subtotal": "12.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 2,
+  "fields": {
+    "sale": 1,
+    "product": 5,
+    "quantity": 1,
+    "price_at_sale": "2.99",
+    "subtotal": "2.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 3,
+  "fields": {
+    "sale": 2,
+    "product": 1,
+    "quantity": 1,
+    "price_at_sale": "999.99",
+    "subtotal": "999.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 4,
+  "fields": {
+    "sale": 2,
+    "product": 2,
+    "quantity": 1,
+    "price_at_sale": "29.99",
+    "subtotal": "29.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 5,
+  "fields": {
+    "sale": 2,
+    "product": 3,
+    "quantity": 1,
+    "price_at_sale": "49.99",
+    "subtotal": "49.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 6,
+  "fields": {
+    "sale": 3,
+    "product": 1,
+    "quantity": 1,
+    "price_at_sale": "999.99",
+    "subtotal": "999.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 7,
+  "fields": {
+    "sale": 3,
+    "product": 2,
+    "quantity": 1,
+    "price_at_sale": "29.99",
+    "subtotal": "29.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 8,
+  "fields": {
+    "sale": 4,
+    "product": 8,
+    "quantity": 1,
+    "price_at_sale": "49.99",
+    "subtotal": "49.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 9,
+  "fields": {
+    "sale": 4,
+    "product": 6,
+    "quantity": 1,
+    "price_at_sale": "12.99",
+    "subtotal": "12.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 10,
+  "fields": {
+    "sale": 5,
+    "product": 1,
+    "quantity": 1,
+    "price_at_sale": "999.99",
+    "subtotal": "999.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 11,
+  "fields": {
+    "sale": 5,
+    "product": 2,
+    "quantity": 1,
+    "price_at_sale": "29.99",
+    "subtotal": "29.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 12,
+  "fields": {
+    "sale": 5,
+    "product": 3,
+    "quantity": 1,
+    "price_at_sale": "49.99",
+    "subtotal": "49.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 13,
+  "fields": {
+    "sale": 5,
+    "product": 8,
+    "quantity": 1,
+    "price_at_sale": "49.99",
+    "subtotal": "49.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 14,
+  "fields": {
+    "sale": 5,
+    "product": 7,
+    "quantity": 1,
+    "price_at_sale": "19.99",
+    "subtotal": "19.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 15,
+  "fields": {
+    "sale": 6,
+    "product": 2,
+    "quantity": 1,
+    "price_at_sale": "29.99",
+    "subtotal": "29.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 16,
+  "fields": {
+    "sale": 6,
+    "product": 6,
+    "quantity": 1,
+    "price_at_sale": "12.99",
+    "subtotal": "12.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 17,
+  "fields": {
+    "sale": 7,
+    "product": 6,
+    "quantity": 1,
+    "price_at_sale": "12.99",
+    "subtotal": "12.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 18,
+  "fields": {
+    "sale": 7,
+    "product": 5,
+    "quantity": 74,
+    "price_at_sale": "2.99",
+    "subtotal": "221.26"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 19,
+  "fields": {
+    "sale": 8,
+    "product": 7,
+    "quantity": 1,
+    "price_at_sale": "19.99",
+    "subtotal": "19.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 20,
+  "fields": {
+    "sale": 8,
+    "product": 8,
+    "quantity": 3,
+    "price_at_sale": "49.99",
+    "subtotal": "149.97"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 21,
+  "fields": {
+    "sale": 9,
+    "product": 2,
+    "quantity": 9,
+    "price_at_sale": "29.99",
+    "subtotal": "269.91"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 22,
+  "fields": {
+    "sale": 10,
+    "product": 8,
+    "quantity": 4,
+    "price_at_sale": "49.99",
+    "subtotal": "199.96"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 23,
+  "fields": {
+    "sale": 11,
+    "product": 1,
+    "quantity": 1,
+    "price_at_sale": "899.99",
+    "subtotal": "899.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 24,
+  "fields": {
+    "sale": 12,
+    "product": 6,
+    "quantity": 2,
+    "price_at_sale": "12.99",
+    "subtotal": "25.98"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 25,
+  "fields": {
+    "sale": 13,
+    "product": 4,
+    "quantity": 5,
+    "price_at_sale": "3.99",
+    "subtotal": "19.95"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 26,
+  "fields": {
+    "sale": 14,
+    "product": 10,
+    "quantity": 2,
+    "price_at_sale": "18999.99",
+    "subtotal": "37999.98"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 27,
+  "fields": {
+    "sale": 14,
+    "product": 1,
+    "quantity": 1,
+    "price_at_sale": "899.99",
+    "subtotal": "899.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 28,
+  "fields": {
+    "sale": 15,
+    "product": 11,
+    "quantity": 5,
+    "price_at_sale": "200.00",
+    "subtotal": "1000.00"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 29,
+  "fields": {
+    "sale": 16,
+    "product": 9,
+    "quantity": 20,
+    "price_at_sale": "7.00",
+    "subtotal": "140.00"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 30,
+  "fields": {
+    "sale": 17,
+    "product": 10,
+    "quantity": 6,
+    "price_at_sale": "18999.99",
+    "subtotal": "113999.94"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 31,
+  "fields": {
+    "sale": 18,
+    "product": 1,
+    "quantity": 1,
+    "price_at_sale": "899.99",
+    "subtotal": "899.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 32,
+  "fields": {
+    "sale": 19,
+    "product": 10,
+    "quantity": 1,
+    "price_at_sale": "18999.99",
+    "subtotal": "18999.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 33,
+  "fields": {
+    "sale": 19,
+    "product": 1,
+    "quantity": 1,
+    "price_at_sale": "899.99",
+    "subtotal": "899.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 34,
+  "fields": {
+    "sale": 20,
+    "product": 8,
+    "quantity": 1,
+    "price_at_sale": "49.99",
+    "subtotal": "49.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 35,
+  "fields": {
+    "sale": 20,
+    "product": 3,
+    "quantity": 1,
+    "price_at_sale": "49.99",
+    "subtotal": "49.99"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 36,
+  "fields": {
+    "sale": 21,
+    "product": 11,
+    "quantity": 1,
+    "price_at_sale": "200.00",
+    "subtotal": "200.00"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 37,
+  "fields": {
+    "sale": 22,
+    "product": 10,
+    "quantity": 2,
+    "price_at_sale": "18999.99",
+    "subtotal": "37999.98"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 38,
+  "fields": {
+    "sale": 22,
+    "product": 11,
+    "quantity": 2,
+    "price_at_sale": "200.00",
+    "subtotal": "400.00"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 39,
+  "fields": {
+    "sale": 22,
+    "product": 2,
+    "quantity": 2,
+    "price_at_sale": "29.99",
+    "subtotal": "59.98"
+  }
+},
+{
+  "model": "pos.saleitem",
+  "pk": 40,
+  "fields": {
+    "sale": 22,
+    "product": 4,
+    "quantity": 2,
+    "price_at_sale": "3.99",
+    "subtotal": "7.98"
+  }
+}
+]
