@@ -83,25 +83,30 @@ WSGI_APPLICATION = 'rms_pos.wsgi.application'
 # Database configuration
 import dj_database_url
 
-# IMPORTANT: On Vercel, this MUST be set in the Environment Variables dashboard
 DATABASE_URL = os.environ.get('DATABASE_URL')
+
+# Check if we are running on Vercel (Vercel sets these automatically)
+IS_VERCEL = 'VERCEL' in os.environ or 'VERCEL_URL' in os.environ
 
 if DATABASE_URL:
     DATABASES = {
         'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=600)
     }
+elif IS_VERCEL:
+    # If on Vercel but no DATABASE_URL, this WILL stop the server from starting
+    # and show a clear error in the Vercel 'Logs' tab.
+    raise RuntimeError(
+        "\n\nCRITICAL: DATABASE_URL is missing in Vercel Environment Variables.\n"
+        "Please add it in: Project Settings > Environment Variables\n"
+    )
 else:
-    # Use SQLite ONLY for local development
+    # Local development fallback
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-
-# Safety check for Vercel
-if os.environ.get('VERCEL') and not DATABASE_URL:
-    raise Exception("CRITICAL ERROR: DATABASE_URL is not set in Vercel Environment Variables!")
 
 
 # Password validation
@@ -139,10 +144,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [BASE_DIR / 'rms_pos' / 'static']
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_DIRS = [BASE_DIR / 'rms_pos' / 'static']
+
+# Use WhiteNoise to serve static files
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app', 'https://*.now.sh']
 
