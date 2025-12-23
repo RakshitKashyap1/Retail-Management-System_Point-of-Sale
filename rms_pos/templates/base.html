@@ -109,6 +109,25 @@
             background: rgba(239, 68, 68, 0.2);
         }
 
+        .navbar-theme-toggle {
+            width: 38px;
+            height: 38px;
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 10px;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .navbar-theme-toggle:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+
         /* Collapsible Menu Styles */
         .menu-toggle {
             width: 40px;
@@ -359,6 +378,30 @@
                     <span class="navbar-greeting-text">Hello,</span>
                     <span class="navbar-username">{{ user.username }}</span>
                 </div>
+
+                <button class="navbar-theme-toggle" id="navbarThemeToggle" aria-label="Toggle dark mode">
+                    <!-- Sun Icon -->
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" style="display: none;">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <!-- Moon Icon -->
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+
                 <form method="post" action="{% url 'logout' %}" style="margin: 0;">
                     {% csrf_token %}
                     <button type="submit" class="navbar-logout-btn">
@@ -527,15 +570,26 @@
                 }
             });
 
-            // Theme Toggle (new menu version)
+            // Theme Toggle Logic
+            const navbarThemeToggle = document.getElementById('navbarThemeToggle');
             const themeToggleMenu = document.getElementById('themeToggleMenu');
 
-            if (themeToggleMenu) {
-                const sunIconMenu = themeToggleMenu.querySelector('.sun-icon-menu');
-                const moonIconMenu = themeToggleMenu.querySelector('.moon-icon-menu');
-                const themeLabel = themeToggleMenu.querySelector('.theme-label');
+            function updateThemeUI(isLight) {
+                // Update Icons in Navbar
+                if (navbarThemeToggle) {
+                    const sunIcon = navbarThemeToggle.querySelector('.sun-icon');
+                    const moonIcon = navbarThemeToggle.querySelector('.moon-icon');
+                    if (sunIcon && moonIcon) {
+                        sunIcon.style.display = isLight ? 'none' : 'block';
+                        moonIcon.style.display = isLight ? 'block' : 'none';
+                    }
+                }
 
-                function updateMenuIcons(isLight) {
+                // Update Icons in Menu
+                if (themeToggleMenu) {
+                    const sunIconMenu = themeToggleMenu.querySelector('.sun-icon-menu');
+                    const moonIconMenu = themeToggleMenu.querySelector('.moon-icon-menu');
+                    const themeLabel = themeToggleMenu.querySelector('.theme-label');
                     if (sunIconMenu && moonIconMenu) {
                         if (isLight) {
                             sunIconMenu.style.display = 'none';
@@ -548,25 +602,21 @@
                         }
                     }
                 }
-
-                // Sync with current class state
-                const isLight = document.documentElement.classList.contains('light-theme');
-                updateMenuIcons(isLight);
-
-                themeToggleMenu.addEventListener('click', function () {
-                    // Toggle Class
-                    document.documentElement.classList.toggle('light-theme');
-
-                    // Check new state
-                    const isNowLight = document.documentElement.classList.contains('light-theme');
-
-                    // Save preference
-                    localStorage.setItem('theme', isNowLight ? 'light' : 'dark');
-
-                    // Update UI
-                    updateMenuIcons(isNowLight);
-                });
             }
+
+            function toggleTheme() {
+                document.documentElement.classList.toggle('light-theme');
+                const isNowLight = document.documentElement.classList.contains('light-theme');
+                localStorage.setItem('theme', isNowLight ? 'light' : 'dark');
+                updateThemeUI(isNowLight);
+            }
+
+            // Sync with current class state
+            const isInitialLight = document.documentElement.classList.contains('light-theme');
+            updateThemeUI(isInitialLight);
+
+            if (navbarThemeToggle) navbarThemeToggle.addEventListener('click', toggleTheme);
+            if (themeToggleMenu) themeToggleMenu.addEventListener('click', toggleTheme);
         });
     </script>
 </body>
