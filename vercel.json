@@ -1,11 +1,19 @@
 {
     "version": 2,
-    "functions": {
-        "rms_pos/wsgi.py": {
-            "runtime": "python3.12"
+    "builds": [
+        {
+            "src": "rms_pos/wsgi.py",
+            "use": "@vercel/python",
+            "config": {
+                "runtime": "python3.12"
+            }
         }
-    },
+    ],
     "routes": [
+        {
+            "src": "/static/(.*)",
+            "dest": "static/$1"
+        },
         {
             "src": "/(.*)",
             "dest": "rms_pos/wsgi.py"

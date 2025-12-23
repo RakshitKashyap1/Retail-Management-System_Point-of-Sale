@@ -80,26 +80,28 @@ TEMPLATES = [
 WSGI_APPLICATION = 'rms_pos.wsgi.application'
 
 
-# Database configuration for PostgreSQL (Neon) or local SQLite
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
+# Database configuration
 import dj_database_url
 
-if os.environ.get('DATABASE_URL'):
+# IMPORTANT: On Vercel, this MUST be set in the Environment Variables dashboard
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
+if DATABASE_URL:
     DATABASES = {
-        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+        'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=600)
     }
-    DATABASES['default']['CONN_MAX_AGE'] = 600
-elif os.environ.get('VERCEL'):
-    # Force an error if we are on Vercel but have no DB URL
-    raise Exception("DATABASE_URL environment variable is missing on Vercel!")
 else:
+    # Use SQLite ONLY for local development
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+
+# Safety check for Vercel
+if os.environ.get('VERCEL') and not DATABASE_URL:
+    raise Exception("CRITICAL ERROR: DATABASE_URL is not set in Vercel Environment Variables!")
 
 
 # Password validation
