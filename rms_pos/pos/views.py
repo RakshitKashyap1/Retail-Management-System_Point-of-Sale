@@ -29,6 +29,7 @@ def product_search_api(request):
             'id': p.id,
             'name': p.name,
             'price': float(p.price),
+            'cost': float(p.cost),
             'discounted_price': float(discounted_price),
             'discount_percentage': float(p.discount_percentage),
             'stock': p.stock_quantity,
@@ -75,19 +76,19 @@ def checkout_api(request):
                 note=f"Sale {sale.receipt_number}"
             )
             
-            discounted_price = product.get_discounted_price()
-            discount_amount_per_unit = product.price - discounted_price
+            # Use cost instead of price for the sale
+            sale_price = product.cost
             
             SaleItem.objects.create(
                 sale=sale,
                 product=product,
                 quantity=quantity,
-                price_at_sale=discounted_price,
-                subtotal=discounted_price * quantity
+                price_at_sale=sale_price,
+                subtotal=sale_price * quantity
             )
             
-            total_amount += float(discounted_price) * quantity
-            total_discount += float(discount_amount_per_unit) * quantity
+            total_amount += float(sale_price) * quantity
+            # We skip discount calculation here since we're selling at cost
 
         sale.total_amount = total_amount
         sale.discount_amount = total_discount
