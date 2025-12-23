@@ -89,8 +89,10 @@ if os.environ.get('DATABASE_URL'):
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
-    # Recommended settings for Neon/Postgres
     DATABASES['default']['CONN_MAX_AGE'] = 600
+elif os.environ.get('VERCEL'):
+    # Force an error if we are on Vercel but have no DB URL
+    raise Exception("DATABASE_URL environment variable is missing on Vercel!")
 else:
     DATABASES = {
         'default': {

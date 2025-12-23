@@ -1,15 +1,10 @@
 {
     "version": 2,
-    "builds": [
-        {
-            "src": "rms_pos/wsgi.py",
-            "use": "@vercel/python",
-            "config": {
-                "maxLambdaSize": "15mb",
-                "runtime": "python3.12"
-            }
+    "functions": {
+        "rms_pos/wsgi.py": {
+            "runtime": "python3.12"
         }
-    ],
+    },
     "routes": [
         {
             "src": "/(.*)",
