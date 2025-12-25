@@ -1,65 +1,95 @@
 :root {
-    /* Dark Theme (Default) */
-    --bg-body: #2A014B;
-    /* Deep Purple */
-    --bg-gradient: linear-gradient(135deg, #2A014B 0%, #150026 100%);
-    --text-primary: #DAFAF8;
-    /* Light Cyan */
-    --text-secondary: #D6E1A5;
-    /* Light Green */
-    --text-muted: rgba(218, 250, 248, 0.6);
-    --nav-bg: rgba(42, 1, 75, 0.9);
-    --border-color: rgba(218, 250, 248, 0.2);
+    /* Light Theme (Default) - "Clean Teal" */
+
+    /* Background: Very subtle tint of User's Cyan #DAFAF8 */
+    --bg-body: #f0fdfc;
+    --bg-gradient: linear-gradient(135deg, #f0fdfc 0%, #e6fffa 100%);
+
+    /* Text: User's Purple #2A014B for headers, standard grey for body */
+    --text-primary: #1e293b;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --text-brand: #2A014B;
+    /* User's Deep Purple */
+
+    /* Navigation & Surfaces */
+    --nav-bg: rgba(255, 255, 255, 0.95);
+    --card-bg: #ffffff;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+
+    /* Borders */
+    --border-color: #e2e8f0;
     --border-color-hover: #027B7E;
-    /* Teal */
 
-    --card-bg: rgba(42, 1, 75, 0.7);
-    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    --input-bg: rgba(2, 123, 126, 0.2);
-    --input-focus-bg: rgba(2, 123, 126, 0.3);
-    --table-bg: rgba(42, 1, 75, 0.5);
-    --table-header-bg: rgba(2, 123, 126, 0.3);
-    --table-hover-bg: rgba(218, 250, 248, 0.05);
-
-    --accent-start: #027B7E;
-    --accent-middle: #027B7E;
-    --accent-end: #D6E1A5;
-    --accent-gradient: linear-gradient(135deg, var(--accent-start) 0%, var(--accent-end) 100%);
-    --accent-shadow: rgba(2, 123, 126, 0.4);
-
-    --btn-secondary-bg: rgba(218, 250, 248, 0.1);
-    --btn-secondary-border: rgba(218, 250, 248, 0.2);
-    --btn-secondary-hover-bg: rgba(218, 250, 248, 0.15);
-}
-
-html.light-theme {
-    --bg-body: #DAFAF8;
-    /* Light Cyan */
-    --bg-gradient: linear-gradient(135deg, #DAFAF8 0%, #E0F2F1 100%);
-
-    --text-primary: #2A014B;
-    /* Deep Purple */
-    --text-secondary: #027B7E;
-    /* Teal */
-    --text-muted: rgba(42, 1, 75, 0.7);
-    --nav-bg: rgba(218, 250, 248, 0.9);
-    --border-color: rgba(42, 1, 75, 0.15);
-    --border-color-hover: #027B7E;
-    --card-bg: rgba(255, 255, 255, 0.6);
-    --card-shadow: 0 4px 20px rgba(42, 1, 75, 0.08);
-    --input-bg: rgba(255, 255, 255, 0.8);
+    /* Inputs */
+    --input-bg: #f8fafc;
     --input-focus-bg: #ffffff;
-    --table-bg: rgba(255, 255, 255, 0.7);
-    --table-header-bg: rgba(214, 225, 165, 0.4);
-    --table-hover-bg: rgba(42, 1, 75, 0.05);
 
+    /* Tables */
+    --table-bg: #ffffff;
+    --table-header-bg: #f1f5f9;
+    --table-hover-bg: #f8fafc;
+
+    /* Accents */
     --accent-start: #027B7E;
-    --accent-end: #2A014B;
+    /* Teal */
+    --accent-end: #0f766e;
+
+    --accent-gradient: linear-gradient(135deg, var(--accent-start) 0%, var(--accent-end) 100%);
     --accent-shadow: rgba(2, 123, 126, 0.2);
 
-    --btn-secondary-bg: rgba(42, 1, 75, 0.05);
-    --btn-secondary-border: rgba(42, 1, 75, 0.1);
-    --btn-secondary-hover-bg: rgba(42, 1, 75, 0.1);
+    /* Buttons */
+    --btn-secondary-bg: #ffffff;
+    --btn-secondary-border: #cbd5e1;
+    --btn-secondary-hover-bg: #f1f5f9;
+}
+
+html.dark-theme {
+    /* Dark Theme - "Midnight Professional" */
+
+    /* Core Backgrounds: Deepening the user's #2A014B for better contrast */
+    --bg-body: #0d021c;
+    --bg-gradient: linear-gradient(135deg, #0d021c 0%, #1a0130 100%);
+
+    /* Text: Using white/grey for readability, keeping User's Cyan for subtle highlights */
+    --text-primary: #ffffff;
+    --text-secondary: #cbd5e1;
+    --text-muted: #64748b;
+    --text-brand: #DAFAF8;
+    /* User's Light Cyan */
+
+    /* Navigation & Surfaces */
+    --nav-bg: rgba(20, 5, 35, 0.95);
+    --card-bg: rgba(25, 10, 45, 0.7);
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.15);
+
+    /* Borders */
+    --border-color: rgba(218, 250, 248, 0.1);
+    --border-color-hover: #027B7E;
+
+    /* Inputs */
+    --input-bg: rgba(0, 0, 0, 0.3);
+    --input-focus-bg: rgba(0, 0, 0, 0.5);
+
+    /* Tables */
+    --table-bg: rgba(25, 10, 45, 0.4);
+    --table-header-bg: rgba(2, 123, 126, 0.2);
+    --table-hover-bg: rgba(2, 123, 126, 0.1);
+
+    /* Accents - User's Palette */
+    --accent-start: #027B7E;
+    /* Teal */
+    --accent-middle: #2d9da0;
+    --accent-end: #D6E1A5;
+    /* Light Green */
+
+    --accent-gradient: linear-gradient(135deg, var(--accent-start) 0%, var(--accent-middle) 100%);
+    --accent-shadow: rgba(2, 123, 126, 0.3);
+
+    /* Buttons */
+    --btn-secondary-bg: rgba(255, 255, 255, 0.05);
+    --btn-secondary-border: rgba(255, 255, 255, 0.1);
+    --btn-secondary-hover-bg: rgba(255, 255, 255, 0.1);
 }
 
 
@@ -258,18 +288,18 @@ nav {
 
 /* Stats Cards */
 .stat-card {
-    background: linear-gradient(135deg, rgba(168, 224, 99, 0.15) 0%, rgba(86, 171, 47, 0.1) 100%);
+    background: var(--card-bg);
     backdrop-filter: blur(10px);
     padding: 3rem;
     border-radius: 24px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(168, 224, 99, 0.2);
+    border: 1px solid var(--border-color);
     transition: all 0.3s;
 }
 
 .stat-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 40px rgba(168, 224, 99, 0.3);
+    box-shadow: 0 12px 40px var(--accent-shadow);
 }
 
 .stat-card.blue {
@@ -299,8 +329,8 @@ nav {
 }
 
 .stat-icon-green {
-    background: linear-gradient(135deg, #a8e063 0%, #56ab2f 100%);
-    box-shadow: 0 4px 15px rgba(168, 224, 99, 0.4);
+    background: var(--accent-gradient);
+    box-shadow: 0 4px 15px var(--accent-shadow);
 }
 
 .stat-icon-blue {
@@ -325,10 +355,9 @@ nav {
 .stat-value {
     font-size: 4rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #a8e063 0%, #56ab2f 100%);
+    background: var(--accent-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
     background-clip: text;
 }
 
@@ -338,6 +367,7 @@ nav {
     background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .stat-footer {
@@ -921,18 +951,21 @@ table {
 }
 
 .dashboard-stat-icon.green {
-    background: linear-gradient(135deg, #a8e063 0%, #56ab2f 100%);
-    box-shadow: 0 4px 15px rgba(168, 224, 99, 0.4);
+    background: linear-gradient(135deg, #027B7E 0%, #D6E1A5 100%);
+    box-shadow: 0 4px 15px rgba(2, 123, 126, 0.4);
+    color: #fff;
 }
 
 .dashboard-stat-icon.blue {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+    background: linear-gradient(135deg, #027B7E 0%, #0f766e 100%);
+    box-shadow: 0 4px 15px rgba(2, 123, 126, 0.4);
+    color: #fff;
 }
 
 .dashboard-stat-icon.purple {
-    background: linear-gradient(135deg, #8b5cf6 0%, #c084fc 100%);
-    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+    background: linear-gradient(135deg, #2A014B 0%, #4a0082 100%);
+    box-shadow: 0 4px 15px rgba(42, 1, 75, 0.4);
+    color: #fff;
 }
 
 .dashboard-stat-title {
@@ -954,11 +987,17 @@ table {
 }
 
 .dashboard-stat-value.blue {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    background: linear-gradient(135deg, #027B7E 0%, #0f766e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .dashboard-stat-value.purple {
-    background: linear-gradient(135deg, #8b5cf6 0%, #c084fc 100%);
+    background: linear-gradient(135deg, #2A014B 0%, #4a0082 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .dashboard-stat-footer {
@@ -976,16 +1015,16 @@ table {
 }
 
 .dashboard-badge.green {
-    background: linear-gradient(135deg, #a8e063 0%, #56ab2f 100%);
-    color: #1a1d2e;
+    background: linear-gradient(135deg, #027B7E 0%, #D6E1A5 100%);
+    color: #fff;
 }
 
 .dashboard-badge.blue {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    color: #1a1d2e;
+    background: linear-gradient(135deg, #027B7E 0%, #0f766e 100%);
+    color: #fff;
 }
 
 .dashboard-badge.purple {
-    background: linear-gradient(135deg, #8b5cf6 0%, #c084fc 100%);
+    background: linear-gradient(135deg, #2A014B 0%, #4a0082 100%);
     color: #fff;
 }

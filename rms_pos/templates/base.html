@@ -17,9 +17,9 @@
     <link href="{% static 'css/purple_theme.css' %}" rel="stylesheet">
     <script>
         // Check for saved theme preference or use system preference
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        if (savedTheme === 'light') {
-            document.documentElement.classList.add('light-theme');
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            document.documentElement.classList.add('dark-theme');
         }
     </script>
 </head>
@@ -54,7 +54,7 @@
         .navbar-brand {
             font-size: 1.25rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--accent-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -132,7 +132,7 @@
         .menu-toggle {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--accent-gradient);
             border: none;
             border-radius: 10px;
             cursor: pointer;
@@ -221,7 +221,7 @@
         .menu-brand {
             font-size: 1.25rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--accent-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -237,7 +237,7 @@
         .user-avatar {
             width: 38px;
             height: 38px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--accent-gradient);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -574,14 +574,16 @@
             const navbarThemeToggle = document.getElementById('navbarThemeToggle');
             const themeToggleMenu = document.getElementById('themeToggleMenu');
 
-            function updateThemeUI(isLight) {
+            function updateThemeUI(isDark) {
                 // Update Icons in Navbar
                 if (navbarThemeToggle) {
                     const sunIcon = navbarThemeToggle.querySelector('.sun-icon');
                     const moonIcon = navbarThemeToggle.querySelector('.moon-icon');
                     if (sunIcon && moonIcon) {
-                        sunIcon.style.display = isLight ? 'none' : 'block';
-                        moonIcon.style.display = isLight ? 'block' : 'none';
+                        // If dark, show sun (to switch to light)
+                        // If light, show moon (to switch to dark)
+                        sunIcon.style.display = isDark ? 'block' : 'none';
+                        moonIcon.style.display = isDark ? 'none' : 'block';
                     }
                 }
 
@@ -591,29 +593,29 @@
                     const moonIconMenu = themeToggleMenu.querySelector('.moon-icon-menu');
                     const themeLabel = themeToggleMenu.querySelector('.theme-label');
                     if (sunIconMenu && moonIconMenu) {
-                        if (isLight) {
-                            sunIconMenu.style.display = 'none';
-                            moonIconMenu.style.display = 'block';
-                            if (themeLabel) themeLabel.textContent = 'Switch to Dark Mode';
-                        } else {
+                        if (isDark) {
                             sunIconMenu.style.display = 'block';
                             moonIconMenu.style.display = 'none';
                             if (themeLabel) themeLabel.textContent = 'Switch to Light Mode';
+                        } else {
+                            sunIconMenu.style.display = 'none';
+                            moonIconMenu.style.display = 'block';
+                            if (themeLabel) themeLabel.textContent = 'Switch to Dark Mode';
                         }
                     }
                 }
             }
 
             function toggleTheme() {
-                document.documentElement.classList.toggle('light-theme');
-                const isNowLight = document.documentElement.classList.contains('light-theme');
-                localStorage.setItem('theme', isNowLight ? 'light' : 'dark');
-                updateThemeUI(isNowLight);
+                document.documentElement.classList.toggle('dark-theme');
+                const isNowDark = document.documentElement.classList.contains('dark-theme');
+                localStorage.setItem('theme', isNowDark ? 'dark' : 'light');
+                updateThemeUI(isNowDark);
             }
 
-            // Sync with current class state
-            const isInitialLight = document.documentElement.classList.contains('light-theme');
-            updateThemeUI(isInitialLight);
+            // Sync with current class state at load
+            const isInitialDark = document.documentElement.classList.contains('dark-theme');
+            updateThemeUI(isInitialDark);
 
             if (navbarThemeToggle) navbarThemeToggle.addEventListener('click', toggleTheme);
             if (themeToggleMenu) themeToggleMenu.addEventListener('click', toggleTheme);
