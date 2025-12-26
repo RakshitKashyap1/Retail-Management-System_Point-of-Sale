@@ -7,11 +7,16 @@ A full-featured retail management system with integrated POS built with Django a
 - **Vercel Deployment**: Configured with optimized `vercel.json` and WhiteNoise for seamless cloud hosting.
 - **Enhanced UI Persistence**: Fixed theme toggling (Dark/Light) with instant navbar access and Google Fonts (Outfit & Inter) for a premium look.
 - **Cost-Centric Tracking**: The system now prioritizes **Cost Price** across the POS and Inventory modules for more accurate business tracking.
+- **Inventory Analytics**: Smart dashboard with visual charts for sales trends, top-selling products, and stock alerts.
+- **Enforced RBAC**: Strict view-level security and dynamic UI navigation based on user roles (Admin/Manager/Cashier).
 
-## ## Features
+## Features
 
-- **Interactive Dashboard**: Centered overview with large, clickable stat cards for Total Products, Low Stock and Daily Sales.
-- **Modern Navigation**: Fixed top navbar with a collapsible hamburger side menu and persistent brand visibility.
+- **Interactive Analytics Dashboard**: 
+  - **Visual Insights**: Real-time Line charts for sales trends and Bar charts for top-selling products.
+  - **Smart Alerts**: Auto-generated lists for low-stock items.
+  - **KPIs**: Clickable stat cards for quick access to critical inventory data.
+- **Modern Navigation**: Fixed top navbar with role-aware links (hides administrative options for Cashiers).
 - **User Management System**:
   - **Role-based Access**: Admin, Manager, and Cashier permissions.
   - **Invite-only Registration**: Unique reference codes for new users (expiring codes with role assignment).
@@ -24,16 +29,16 @@ A full-featured retail management system with integrated POS built with Django a
 - **Multi-Theme Support**: Instant toggle between Premium Dark Mode and Clean Light Mode with preference persistence.
 - **Responsive UI**: Mobile-first design ensures the dashboard, POS, and management tools work on phones, tablets, and desktops.
 
-## ## Tech Stack
+## Tech Stack
 
 - **Backend**: Django 5.1 (Python 3.12)
-- **Frontend**: HTML5, Custom Vanilla CSS (Glassmorphism), JavaScript (ES6+)
+- **Frontend**: HTML5, Custom Vanilla CSS (Glassmorphism), JavaScript (ES6+), **Chart.js**
 - **Database**: **PostgreSQL** (Production) / SQLite (Local Default)
 - **Deployment**: Vercel
 - **Static Assets**: WhiteNoise (Compressed & Manifest-based serving)
 - **Typography**: Google Fonts (Outfit for headings, Inter for body text)
 
-## ## Installation & Setup
+## Installation & Setup
 
 1. **Install Dependencies**:
    ```bash
@@ -56,7 +61,7 @@ A full-featured retail management system with integrated POS built with Django a
    python manage.py collectstatic --noinput
    ```
 
-## ## Running the Application
+## Running the Application
 
 1. **Local Development**:
    ```bash
@@ -66,7 +71,7 @@ A full-featured retail management system with integrated POS built with Django a
 2. **Vercel Deployment**:
    The project is configured for Vercel. Ensure `DATABASE_URL` is set in the Vercel project settings under "Environment Variables".
 
-## ## Role-based Access Control
+## Role-based Access Control
 
 | Role | Permissions |
 |------|-------------|
@@ -74,7 +79,7 @@ A full-featured retail management system with integrated POS built with Django a
 | **Manager** | Full access to Inventory and Sales History. Can manage products and stock levels. |
 | **Cashier** | Access to POS checkout interface and individual receipt generation. |
 
-## ## Usage Guide
+## Usage Guide
 
 ### User Registration (New Users)
 1. **Reference Codes**: Admins generate unique codes for specific roles.
@@ -88,7 +93,7 @@ A full-featured retail management system with integrated POS built with Django a
 1. **Quick POS**: Rapid item entry based on **Cost Price**.
 2. **Sales History**: Track revenue and download print-ready summaries.
 
-## ## Project Structure
+## Project Structure
 ```
 Retail-Management-System_Point-of-Sale/
 ├── manage.py

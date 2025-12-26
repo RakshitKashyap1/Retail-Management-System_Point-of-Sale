@@ -59,4 +59,99 @@
         </div>
     </a>
 </div>
+
+<!-- Charts Section -->
+<div class="charts-container"
+    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+    <!-- Sales Trend -->
+    <div class="chart-card"
+        style="background: var(--card-bg); padding: 1.5rem; border-radius: 16px; border: 1px solid var(--border-color);">
+        <h3 style="margin-bottom: 1rem; color: var(--text-primary);">Sales Trends (Last 7 Days)</h3>
+        <canvas id="salesTrendChart"></canvas>
+    </div>
+
+    <!-- Top Selling Products -->
+    <div class="chart-card"
+        style="background: var(--card-bg); padding: 1.5rem; border-radius: 16px; border: 1px solid var(--border-color);">
+        <h3 style="margin-bottom: 1rem; color: var(--text-primary);">Top Selling Products</h3>
+        <canvas id="topProductsChart"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const ctxSales = document.getElementById('salesTrendChart').getContext('2d');
+        const ctxTop = document.getElementById('topProductsChart').getContext('2d');
+
+        // Common Chart Options
+        const commonOptions = {
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: getComputedStyle(document.documentElement).getPropertyValue('--text-primary')
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    grid: {
+                        color: 'rgba(100, 100, 100, 0.1)'
+                    },
+                    ticks: {
+                        color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary')
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary')
+                    }
+                }
+            }
+        };
+
+        fetch("{% url 'dashboard_analytics_api' %}")
+            .then(response => response.json())
+            .then(data => {
+                // Render Sales Trend
+                new Chart(ctxSales, {
+                    type: 'line',
+                    data: {
+                        labels: data.sales_trend.labels,
+                        datasets: [{
+                            label: 'Sales (₹)',
+                            data: data.sales_trend.data,
+                            borderColor: '#8b5cf6',
+                            backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: commonOptions
+                });
+
+                // Render Top Products
+                new Chart(ctxTop, {
+                    type: 'bar',
+                    data: {
+                        labels: data.top_products.labels,
+                        datasets: [{
+                            label: 'Units Sold',
+                            data: data.top_products.data,
+                            backgroundColor: [
+                                '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'
+                            ],
+                            borderRadius: 6
+                        }]
+                    },
+                    options: commonOptions
+                });
+            })
+            .catch(error => console.error('Error fetching analytics:', error));
+    });
+</script>
 {% endblock %}
