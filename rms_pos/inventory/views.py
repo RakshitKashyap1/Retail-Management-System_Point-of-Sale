@@ -141,4 +141,37 @@ def edit_product(request, pk):
             return redirect('product_list')
     else:
         form = ProductForm(instance=product)
-    return render(request, 'inventory/product_form.html', {'form': form, 'title': 'Edit Product'})
+@login_required
+@manager_required
+def export_products_data(request):
+    import csv
+    from django.http import HttpResponse
+
+    status = request.GET.get('stock_status', 'all')
+    products = Product.objects.select_related('category').all()
+    filename = "products_all"
+
+    if status == 'low':
+        products = products.filter(stock_quantity__lte=10)
+        filename = "products_low_stock"
+    elif status == 'instock':
+        products = products.filter(stock_quantity__gt=10)
+        filename = "products_in_stock"
+        
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename="{filename}.csv"'
+    
+    writer = csv.writer(response)
+    writer.writerow(['Name', 'Category', 'Barcode', 'Cost', 'Discount (%)', 'Stock Quantity'])
+    
+    for product in products:
+        writer.writerow([
+            product.name,
+            product.category.name if product.category else 'Uncategorized',
+            product.barcode,
+            product.cost,
+            product.discount_percentage,
+            product.stock_quantity
+        ])
+        
+    return response

@@ -212,3 +212,47 @@ def sales_list(request):
         'selected_month': month_input,
         'total_sales': total_sales
     })
+
+@login_required
+def export_sales_data(request):
+    import csv
+    from django.http import HttpResponse
+
+    sales = Sale.objects.filter(is_completed=True).prefetch_related('items__product').select_related('cashier').order_by('-created_at')
+    
+    view_type = request.GET.get('view', 'all')
+    date_input = request.GET.get('date')
+    month_input = request.GET.get('month')
+    
+    filename = "sales_web_export"
+
+    if view_type == 'daily' and date_input:
+        sales = sales.filter(created_at__date=date_input)
+        filename = f"sales_daily_{date_input}"
+    elif view_type == 'monthly' and month_input:
+        year, month = month_input.split('-')
+        sales = sales.filter(created_at__year=year, created_at__month=month)
+        filename = f"sales_monthly_{month_input}"
+        
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename="{filename}.csv"'
+    
+    writer = csv.writer(response)
+    writer.writerow(['Receipt Number', 'Date', 'Time', 'Cashier', 'Customer Name', 'Customer Mobile', 'Payment Method', 'Total Amount', 'Items'])
+    
+    for sale in sales:
+        items_str = ", ".join([f"{item.quantity}x {item.product.name}" for item in sale.items.all()])
+        
+        writer.writerow([
+            sale.receipt_number,
+            sale.created_at.strftime('%Y-%m-%d'),
+            sale.created_at.strftime('%H:%M:%S'),
+            sale.cashier.username if sale.cashier else 'Unknown',
+            sale.customer_name,
+            sale.customer_mobile,
+            sale.get_payment_method_display(),
+            sale.total_amount,
+            items_str
+        ])
+        
+    return response
