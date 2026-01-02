@@ -175,6 +175,19 @@
         }
     };
 
+    window.updatePrice = function (id, newPrice) {
+        const item = cart.find(item => item.id === id);
+        if (item) {
+            const price = parseFloat(newPrice);
+            if (price >= 0) {
+                item.price = price;
+                updateCartUI();
+            } else {
+                alert('Price must be a positive number');
+            }
+        }
+    };
+
     function updateCartUI() {
         if (cart.length === 0) {
             cartItemsContainer.innerHTML = '';
@@ -187,7 +200,17 @@
             <div class="cart-item">
                     <div style="flex: 1;">
                         <h4 style="font-weight: 600; color: #e8eaed; margin-bottom: 0.25rem;">${item.name}</h4>
-                        <div style="font-size: 0.85rem; color: #b0b3c1;">${formatCurrency(item.price)} x ${item.quantity}</div>
+                        <div style="font-size: 0.85rem; color: #b0b3c1; display: flex; align-items: center; gap: 0.5rem;">
+                            <span>Price:</span>
+                            <input type="number" 
+                                   value="${item.price}" 
+                                   step="0.01" 
+                                   min="0"
+                                   onchange="updatePrice(${item.id}, this.value)"
+                                   style="width: 80px; padding: 0.25rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; color: #e8eaed; font-size: 0.85rem;"
+                            />
+                            <span>x ${item.quantity}</span>
+                        </div>
                     </div>
                     <div class="qty-controls">
                         <button onclick="updateQuantity(${item.id}, -1)" class="qty-btn">-</button>

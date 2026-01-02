@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+﻿{% extends 'base.html' %}
 {% load currency_tags %}
 
 {% block title %}Sales History - RMS POS{% endblock %}
@@ -15,11 +15,6 @@
         font-weight: 700;
         color: #a8e063;
         font-size: 1.1rem;
-    }
-
-    .discount-display {
-        font-size: 0.8rem;
-        color: #ef4444;
     }
 
     .cashier-avatar {
@@ -319,16 +314,6 @@
             <line x1="3" y1="10" x2="21" y2="10"></line>
         </svg> Month Wise Sales
     </a>
-    <a href="?view=product" class="btn {% if view_type == 'product' %}btn-primary{% else %}btn-secondary{% endif %}"
-        style="display:inline-flex; align-items:center;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            style="margin-right:0.5rem;">
-            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <path d="M16 10a4 4 0 0 1-8 0"></path>
-        </svg> Product Wise Sales
-    </a>
     <a href="{% url 'export_sales_data' %}?{{ request.GET.urlencode }}" class="btn btn-secondary"
         style="display:inline-flex; align-items:center; background: #28a745; color: white; border: none;">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -343,92 +328,7 @@
     </a>
 </div>
 
-{% if view_type == 'product' %}
-<!-- Product Wise Sales Section -->
-<div class="print-header">
-    <div class="store-name">RMS Point of Sale</div>
-    <h1>Product Sales Report</h1>
-    <div class="print-timestamp">Generated on: <span id="product-print-time"></span></div>
-</div>
-
-<div class="card mb-4" style="margin-bottom: 2rem; border-color: rgba(255, 159, 67, 0.3);">
-    <div class="card-body">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-            <form method="GET" style="display: flex; align-items: center; gap: 1rem; flex: 1;">
-                <input type="hidden" name="view" value="product">
-                <div>
-                    <label style="margin-bottom: 0.5rem;">Filter by Date</label>
-                    <input type="date" name="date" value="{{ selected_date|default:'' }}" onchange="this.form.submit()"
-                        class="form-control" style="max-width: 250px;">
-                </div>
-                <span>OR</span>
-                <div>
-                    <label style="margin-bottom: 0.5rem;">Filter by Month</label>
-                    <input type="month" name="month" value="{{ selected_month|default:'' }}"
-                        onchange="this.form.submit()" class="form-control" style="max-width: 250px;">
-                </div>
-            </form>
-            <button class="print-btn" onclick="printProductReport()"
-                style="background: linear-gradient(135deg, #ff9f43 0%, #ff6b6b 100%);">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
-                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-                    <rect x="6" y="14" width="12" height="8"></rect>
-                </svg>
-                Print Product Report
-            </button>
-        </div>
-    </div>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <h3 style="font-size: 1.1rem; font-weight: 600; color: var(--text-primary);">Product Wise Sales Report</h3>
-    </div>
-    <div class="card-body" style="padding: 0;">
-        <div class="table-responsive">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Product Name</th>
-                        <th>Barcode</th>
-                        <th>Category</th>
-                        <th>Total Quantity Sold</th>
-                        <th>Total Revenue</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in product_stats %}
-                    <tr>
-                        <td style="font-weight: 600; color: var(--text-primary);">{{ item.product__name }}</td>
-                        <td style="font-family: monospace;">{{ item.product__barcode }}</td>
-                        <td>{{ item.product__category__name|default:"-" }}</td>
-                        <td style="font-weight: 700;">{{ item.total_quantity }}</td>
-                        <td class="amount-display">{{ item.total_revenue|rupee_paise }}</td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="5" style="text-align: center; padding: 3rem; color: #6b6e7d;">
-                            No product sales found for the selected period.
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-<!-- Print Summary for Product -->
-<div class="print-summary">
-    <div class="summary-row summary-total">
-        <span>Total Revenue:</span>
-        <span>{{ total_sales|rupee_paise }}</span>
-    </div>
-</div>
-
-{% elif view_type == 'daily' %}
+{% if view_type == 'daily' %}
 <!-- Print Header for Daily Report -->
 <div class="print-header">
     <div class="store-name">RMS Point of Sale</div>
@@ -670,7 +570,8 @@
                             <div style="display: flex; flex-direction: column; align-items: flex-end;">
                                 <span class="amount-display">{{ sale.total_amount|rupee_paise }}</span>
                                 {% if sale.discount_amount > 0 %}
-                                <span class="discount-display">Saved {{ sale.discount_amount|rupee_paise }}</span>
+                                <span style="font-size: 0.8rem; color: #ef4444;">Saved {{
+                                    sale.discount_amount|rupee_paise }}</span>
                                 {% endif %}
                             </div>
                         </td>
@@ -706,18 +607,6 @@
     function printMonthlyReport() {
         // Set the print timestamp
         const printTimeEl = document.getElementById('monthly-print-time');
-        if (printTimeEl) {
-            printTimeEl.textContent = new Date().toLocaleString('en-IN', {
-                dateStyle: 'full',
-                timeStyle: 'short'
-            });
-        }
-        window.print();
-    }
-
-    function printProductReport() {
-        // Set the print timestamp
-        const printTimeEl = document.getElementById('product-print-time');
         if (printTimeEl) {
             printTimeEl.textContent = new Date().toLocaleString('en-IN', {
                 dateStyle: 'full',

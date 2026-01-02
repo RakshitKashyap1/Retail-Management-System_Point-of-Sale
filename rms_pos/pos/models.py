@@ -50,3 +50,13 @@ class SaleItem(models.Model):
 
     def __str__(self):
         return f"{self.quantity} x {self.product.name} in {self.sale.receipt_number}"
+
+class SalesTarget(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='sales_targets', null=True, blank=True)
+    target_amount = models.DecimalField(max_digits=12, decimal_places=2)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Target {self.target_amount} ({self.start_date} - {self.end_date})"

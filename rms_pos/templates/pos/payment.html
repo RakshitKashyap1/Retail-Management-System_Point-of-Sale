@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load currency_tags %}
+
 
 {% block title %}Payment - RMS{% endblock %}
 
@@ -22,7 +24,7 @@
                             <span class="item-name">{{ item.product.name }}</span>
                             <span class="item-qty">× {{ item.quantity }}</span>
                         </div>
-                        <span class="item-price">₹{{ item.subtotal }}</span>
+                        <span class="item-price">{{ item.subtotal|rupee_paise }}</span>
                     </div>
                     {% endfor %}
                 </div>
@@ -31,13 +33,13 @@
                     {% if sale.discount_amount > 0 %}
                     <div class="total-row discount">
                         <span>Discount</span>
-                        <span style="color: #a8e063;">-₹{{ sale.discount_amount }}</span>
+                        <span style="color: #a8e063;">-{{ sale.discount_amount|rupee_paise }}</span>
                     </div>
                     {% endif %}
                     <div class="total-row final">
                         <span>Total Amount</span>
-                        <span class="total-amount" id="total-amount" data-amount="{{ sale.total_amount }}">₹{{
-                            sale.total_amount }}</span>
+                        <span class="total-amount" id="total-amount" data-amount="{{ sale.total_amount }}">{{
+                            sale.total_amount|rupee_paise }}</span>
                     </div>
                 </div>
             </div>

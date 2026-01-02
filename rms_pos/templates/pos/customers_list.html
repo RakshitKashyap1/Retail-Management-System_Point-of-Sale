@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load currency_tags %}
+
+{% block title %}Customer List - RMS POS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Customers</h1>
+        <p class="page-subtitle">Manage customer data and view purchase history</p>
+    </div>
+</div>
+
+<div class="view-filters">
+    <a href="?export=csv" class="btn btn-secondary" style="display:inline-flex; align-items:center;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            style="margin-right:0.5rem;">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg> Export for Bulk SMS (CSV)
+    </a>
+</div>
+
+<div class="card">
+    <div class="card-body" style="padding: 0;">
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>Mobile Number</th>
+                        <th>Total Spent</th>
+                        <th>Last Visit</th>
+                        <th>Visit Count</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for customer in customers %}
+                    <tr>
+                        <td style="font-weight: 600; color: var(--text-primary);">
+                            {{ customer.customer_name|default:"Unknown" }}
+                        </td>
+                        <td style="font-family: monospace;">{{ customer.customer_mobile }}</td>
+                        <td class="amount-display" style="font-weight: 700; color: #a8e063;">
+                            {{ customer.total_spent|rupee_paise }}
+                        </td>
+                        <td style="color: #b0b3c1;">{{ customer.last_visit|date:"M d, Y H:i" }}</td>
+                        <td>{{ customer.visit_count }}</td>
+                        <td>
+                            <button class="btn btn-sm btn-secondary" onclick="alert('SMS integration coming soon!')">
+                                Send SMS
+                            </button>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 3rem; color: #6b6e7d;">
+                            No customer data found.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

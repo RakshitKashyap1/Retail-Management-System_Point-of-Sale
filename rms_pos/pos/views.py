@@ -202,7 +202,37 @@ def sales_list(request):
     elif view_type == 'monthly' and month_input:
         year, month = month_input.split('-')
         sales = sales.filter(created_at__year=year, created_at__month=month)
+    elif view_type == 'product':
+        if date_input:
+            sales = sales.filter(created_at__date=date_input)
+        elif month_input:
+            year, month = month_input.split('-')
+            sales = sales.filter(created_at__year=year, created_at__month=month)
+    
+    product_stats = None
+    if view_type == 'product':
+        from .models import SaleItem
+        # from django.db.models import Sum, F  <-- Removed to fix UnboundLocalError
         
+        # Base filter for completed sales
+        base_qs = SaleItem.objects.filter(sale__is_completed=True)
+        
+        # Apply date filters if provided
+        if date_input:
+            base_qs = base_qs.filter(sale__created_at__date=date_input)
+        elif month_input:
+            year, month = month_input.split('-')
+            base_qs = base_qs.filter(sale__created_at__year=year, sale__created_at__month=month)
+
+        product_stats = base_qs.values(
+            'product__name', 
+            'product__barcode',
+            'product__category__name'
+        ).annotate(
+            total_quantity=Sum('quantity'),
+            total_revenue=Sum('subtotal')
+        ).order_by('-total_revenue')
+
     total_sales = sales.aggregate(total=Sum('total_amount'))['total'] or 0
     
     return render(request, 'pos/sales_list.html', {
@@ -210,7 +240,8 @@ def sales_list(request):
         'view_type': view_type,
         'selected_date': date_input,
         'selected_month': month_input,
-        'total_sales': total_sales
+        'total_sales': total_sales,
+        'product_stats': product_stats
     })
 
 @login_required
@@ -233,6 +264,46 @@ def export_sales_data(request):
         year, month = month_input.split('-')
         sales = sales.filter(created_at__year=year, created_at__month=month)
         filename = f"sales_monthly_{month_input}"
+    elif view_type == 'product':
+        filename = f"sales_product_wise_{date_input if date_input else (month_input if month_input else 'all')}"
+        from .models import SaleItem
+        # from django.db.models import Sum <-- Removed as it is imported globally
+        
+        # Base filter for completed sales
+        base_qs = SaleItem.objects.filter(sale__is_completed=True)
+        
+        # Apply date filters if provided
+        if date_input:
+            base_qs = base_qs.filter(sale__created_at__date=date_input)
+        elif month_input:
+            year, month = month_input.split('-')
+            base_qs = base_qs.filter(sale__created_at__year=year, sale__created_at__month=month)
+
+        product_stats = base_qs.values(
+            'product__name', 
+            'product__barcode',
+            'product__category__name'
+        ).annotate(
+            total_quantity=Sum('quantity'),
+            total_revenue=Sum('subtotal')
+        ).order_by('-total_revenue')
+        
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = f'attachment; filename="{filename}.csv"'
+        
+        writer = csv.writer(response)
+        writer.writerow(['Product Name', 'Barcode', 'Category', 'Total Quantity Sold', 'Total Revenue'])
+        
+        for item in product_stats:
+            writer.writerow([
+                item['product__name'],
+                item['product__barcode'],
+                item['product__category__name'] or '-',
+                item['total_quantity'],
+                item['total_revenue']
+            ])
+            
+        return response
         
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = f'attachment; filename="{filename}.csv"'
@@ -256,3 +327,38 @@ def export_sales_data(request):
         ])
         
     return response
+
+@login_required
+def customers_list(request):
+    from django.db.models import Sum, Max, Count
+    
+    # Aggregate customer data from Sales
+    # Filter out empty mobile numbers
+    customers = Sale.objects.exclude(customer_mobile='').values('customer_mobile').annotate(
+        customer_name=Max('customer_name'),
+        total_spent=Sum('total_amount'),
+        last_visit=Max('created_at'),
+        visit_count=Count('id')
+    ).order_by('-last_visit')
+
+    if request.GET.get('export') == 'csv':
+        import csv
+        from django.http import HttpResponse
+        
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="customers_list.csv"'
+        
+        writer = csv.writer(response)
+        writer.writerow(['Customer Name', 'Mobile Number', 'Total Spent', 'Last Visit', 'Visit Count'])
+        
+        for customer in customers:
+            writer.writerow([
+                customer['customer_name'] or 'Unknown',
+                customer['customer_mobile'],
+                customer['total_spent'],
+                customer['last_visit'].strftime("%Y-%m-%d %H:%M"),
+                customer['visit_count']
+            ])
+        return response
+
+    return render(request, 'pos/customers_list.html', {'customers': customers})

@@ -12,10 +12,11 @@ from core.decorators import manager_required
 @login_required
 @manager_required
 def dashboard(request):
-    from pos.models import Sale, SaleItem
+    from pos.models import Sale, SaleItem, SalesTarget
+    from datetime import date
     
     today = timezone.now().date()
-    daily_sales = Sale.objects.filter(created_at__date=today).aggregate(Sum('total_amount'))['total_amount__sum'] or 0
+    daily_sales = Sale.objects.filter(created_at__date=today, is_completed=True).aggregate(Sum('total_amount'))['total_amount__sum'] or 0
     
     total_products = Product.objects.count()
     low_stock_count = Product.objects.filter(stock_quantity__lte=10).count()
@@ -25,11 +26,43 @@ def dashboard(request):
         .annotate(total_qty=Sum('quantity'))\
         .order_by('-total_qty')[:5]
 
+    # Get active sales targets
+    active_targets = SalesTarget.objects.filter(
+        start_date__lte=today,
+        end_date__gte=today
+    ).select_related('user')
+    
+    # Calculate progress for each target
+    targets_with_progress = []
+    for target in active_targets:
+        if target.user:
+            achieved = Sale.objects.filter(
+                cashier=target.user,
+                created_at__date__gte=target.start_date,
+                created_at__date__lte=target.end_date,
+                is_completed=True
+            ).aggregate(Sum('total_amount'))['total_amount__sum'] or 0
+        else:
+            # Team target
+            achieved = Sale.objects.filter(
+                created_at__date__gte=target.start_date,
+                created_at__date__lte=target.end_date,
+                is_completed=True
+            ).aggregate(Sum('total_amount'))['total_amount__sum'] or 0
+        
+        progress_percent = (achieved / target.target_amount * 100) if target.target_amount > 0 else 0
+        targets_with_progress.append({
+            'target': target,
+            'achieved': achieved,
+            'progress_percent': min(progress_percent, 100)
+        })
+
     context = {
         'total_products': total_products,
         'low_stock': low_stock_count,
         'daily_sales': daily_sales,
-        'top_selling': top_selling
+        'top_selling': top_selling,
+        'sales_targets': targets_with_progress
     }
     return render(request, 'inventory/dashboard.html', context)
 
@@ -141,6 +174,8 @@ def edit_product(request, pk):
             return redirect('product_list')
     else:
         form = ProductForm(instance=product)
+    
+    return render(request, 'inventory/product_form.html', {'form': form, 'title': 'Edit Product'})
 @login_required
 @manager_required
 def export_products_data(request):

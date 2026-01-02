@@ -11,5 +11,6 @@ urlpatterns = [
     path('api/receipt/<int:sale_id>/customer/', views.save_customer_details, name='save_customer_details'),
     path('sales/', views.sales_list, name='sales_list'),
     path('sales/export/', views.export_sales_data, name='export_sales_data'),
+    path('customers/', views.customers_list, name='customers_list'),
 ]
 

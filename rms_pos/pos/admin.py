@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Sale, SaleItem
+from .models import Sale, SaleItem, SalesTarget
 
 class SaleItemInline(admin.TabularInline):
     model = SaleItem
@@ -19,3 +19,11 @@ class SaleItemAdmin(admin.ModelAdmin):
     list_display = ['sale', 'product', 'quantity', 'price_at_sale', 'subtotal']
     list_filter = ['sale__created_at']
     search_fields = ['product__name', 'sale__receipt_number']
+
+@admin.register(SalesTarget)
+class SalesTargetAdmin(admin.ModelAdmin):
+    list_display = ['user', 'target_amount', 'start_date', 'end_date', 'created_at']
+    list_filter = ['start_date', 'end_date', 'user']
+    search_fields = ['user__username']
+    date_hierarchy = 'start_date'
+
