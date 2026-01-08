@@ -12,6 +12,7 @@ A full-featured retail management system with integrated POS built with Django a
 - **Vercel Deployment**: Configured with optimized `vercel.json` and WhiteNoise for seamless cloud hosting.
 - **Enhanced UI Persistence**: Fixed theme toggling (Dark/Light) with instant navbar access and Google Fonts (Outfit & Inter) for a premium look.
 - **Offline Synchronization**: Engineered for reliability with support for local PostgreSQL replication and synchronization with production cloud databases.
+- **Improved UI Reliability**: Fixed critical rendering bug on the payment page where total amounts were occasionally displayed as raw template code.
 - **Enforced RBAC**: Strict view-level security and dynamic UI navigation based on user roles (Admin/Manager/Cashier).
 
 ## 🌟 Key Features
